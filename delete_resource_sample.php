@@ -3,7 +3,6 @@
 
 // config
 $resourceId = 'https://id.acdh.oeaw.ac.at/resourceIwantToDelete';
-$resourceId = 'https://id.acdh.oeaw.ac.at/donauhandel';
 $recursively = false; // should collection children be removed as well (doesn't count if you remember a binary resource)
 $removeReferences = false; // should metadata references to removed resource(s) be removed as well (when `false` and such references exist, the removal will fail)
 
