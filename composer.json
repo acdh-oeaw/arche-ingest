@@ -1,0 +1,5 @@
+{
+    "require": {
+        "acdh-oeaw/arche-lib-ingest": "^1.3"
+    }
+}
