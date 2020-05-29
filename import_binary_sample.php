@@ -2,6 +2,7 @@
 // path to the data (e.g. '../data')
 $containerDir = 'PATH_TO_THE_DATA_DIRECTORY';
 // prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau/')
+// (see https://github.com/acdh-oeaw/repo-php-util/#how-files-are-matched-with-repository-resources for more information)
 $containerToUriPrefix = 'ID_PREFIX';
 // Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau').
 // ParentResourceId may be empty. In such a case files in the indexed directory root won't be attached to any parent by the Indexer (but they can still have parents defined e.g. trough a metadata import).
