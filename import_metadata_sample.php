@@ -29,6 +29,7 @@ $repo = Repo::factoryInteractive($configLocation);
 echo "\n######################################################\nImporting structure\n######################################################\n\n";
 $graph = new MetadataCollection($repo, $ttlLocation);
 $graph->setAutoCommit($autocommit);
+$graph->preprocess();
 $repo->begin();
 $resources = $graph->import('https://id.acdh.oeaw.ac.at/', MetadataCollection::SKIP, $rc->getConstant($errMode));
 $repo->commit();
