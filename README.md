@@ -25,7 +25,8 @@ Then adjust the settings at the top of a file (leave `$configLocation` and `$com
 ### Reporting errors
 
 * Create a subtask of the Redmine issue [#17641](https://redmine.acdh.oeaw.ac.at/issues/17641).
-* Please provide information on the exact location of the ingestion script location (including the script file itself) and any other information which may be required to replicated the problem.
+    * Provide information on the exact location of the ingestion script location (including the script file itself) and any other information which may be required to replicated the problem.
+    * Assign Mateusz and Norbert as watchers.
 
 ### Running long tasks
 
