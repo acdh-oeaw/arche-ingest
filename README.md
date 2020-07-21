@@ -22,6 +22,11 @@ It will assure your ingestion script will be correct and up to date.
 
 Then adjust the settings at the top of a file (leave `$configLocation` and `$composerLocation` as they are) and run the file.
 
+### Reporting errors
+
+* Create a subtask of the Redmine issue [#17641](https://redmine.acdh.oeaw.ac.at/issues/17641).
+* Please provide information on the exact location of the ingestion script location (including the script file itself) and any other information which may be required to replicated the problem.
+
 ### Running long tasks
 
 * Prepare a file with input data.  
