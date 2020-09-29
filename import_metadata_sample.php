@@ -1,4 +1,6 @@
 <?php
+// This script imports metadata from a ttl file
+
 // config
 $ttlLocation = 'WRITE_DOWN_PATH_TO_YOUR_TTL_HERE';
 $errMode     = 'ERRMODE_FAIL'; // ERRMODE_FAIL (fail on first error) or ERRMODE_PASS (continue on error and fail at the end)

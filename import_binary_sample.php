@@ -1,4 +1,6 @@
 <?php
+// This file imports binaries from a given directory
+
 // path to the data (e.g. '../data')
 $containerDir = 'PATH_TO_THE_DATA_DIRECTORY';
 // prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau/')
