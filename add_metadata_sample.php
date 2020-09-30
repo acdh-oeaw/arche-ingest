@@ -1,8 +1,8 @@
 <?php
-// This script removes metadata properties without deleting repository resources
+// This script adds metadata triples to resources preserving all already existing triples
 
 // config
-$ttlFile = 'delete_metadata_sample.ttl';
+$ttlFile = 'add_metadata_sample.ttl';
 
 // advanced config (generally shouldn't need adjustments)
 $configLocation    = '/ARCHE/config.yaml';
@@ -29,20 +29,14 @@ $repo    = Repo::factoryInteractive($configLocation);
 
 foreach ($graph->resources() as $r) {
     if (count($r->propertyUris()) > 0) {
-        echo "Removing metadata from " . $r->getUri() . "\n";
+        echo "Adding metadata to " . $r->getUri() . "\n";
         $repo->begin();
         try {
             $res = $repo->getResourceById($r->getUri());
             $meta = $res->getMetadata();
             foreach ($r->propertyUris() as $p) {
                 foreach ($r->all($p) as $v) {
-                    $dtLang = '';
-                    if ($v instanceof \EasyRdf\Literal) {
-                        $dtLang = !empty($v->getLang()) ? '@' . $v->getLang() : '';
-                        $dtLang .= !empty($v->getDatatype()) ? '^^' . $v->getDatatype() : '';
-                    }
-                    echo "\tremoving $p " . (string) $v . $dtLang . "\n";
-                    $meta->delete($p, $v);
+                    $meta->add($p, $v);
                 }
             }
             $res->setMetadata($meta);

@@ -1,0 +1,10 @@
+@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.
+@prefix acdhi: <https://id.acdh.oeaw.ac.at/>.
+
+<https://id.acdh.oeaw.ac.at/maechtekongresse/persons/p.141>
+   acdh:hasIdentifier acdhi:franzcalabria ;
+   acdh:hasAlternativeTitle "Francesco Duca di Calabria"@de ;
+   acdh:hasTitle "Franz Duca di Calabria"@de ;
+   acdh:hasTitle "Franz Duca di Calabria"@en ;
+   acdh:hasFirstName "Franz"@de ;
+   acdh:hasFirstName "Franz"@en .

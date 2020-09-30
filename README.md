@@ -15,7 +15,8 @@
 
 ### Sample scripts provided
 
-* `delete_metadata_sample.php` removes metadata properties specified in the ttl file (but doesn't remove repository resources)
+* `add_metadata_sample.php` adds metadata triples specified in the ttl file preserving all existing metadata of repository resources
+* `delete_metadata_sample.php` removes metadata triples specified in the ttl file (but doesn't remove repository resources)
 * `delete_resource_sample.php` removes repository resources
 * `import_binary_sample.php` imports binary data from the disk
 * `import_metadata_sample.php` imports metadata from a ttl file
