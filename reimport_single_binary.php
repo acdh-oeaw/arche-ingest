@@ -1,10 +1,10 @@
 <?php
 // This script reingests a single resource's binary content (to be used when file name and/or location changed)
 
-// identifier of the resource which binary will be updated
-$resourceId = 'RESOURCE_ID';
-// path to the file which will overwrite repository resource's binary
-$filePath   = 'FILE_PATH';
+// identifier of the reingested resource
+$resourceId = 'http://127.0.0.1/api/417';
+// path to the file
+$filePath   = 'reimport_single_binary.php';
 
 // advanced config (generally shouldn't need adjustments)
 $mimeType          = 'application/php'; // mime type of the binary (when null, it will be guesed from the file content)
