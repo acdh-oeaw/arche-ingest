@@ -40,6 +40,9 @@ foreach ($graph->resources() as $r) {
                     if ($v instanceof \EasyRdf\Literal) {
                         $dtLang = !empty($v->getLang()) ? '@' . $v->getLang() : '';
                         $dtLang .= !empty($v->getDatatype()) ? '^^' . $v->getDatatype() : '';
+                    } else {
+                        $dr = $repo->getResourceById($v->getUri());
+                        $v = $meta->getGraph()->resource($dr->getUri());
                     }
                     echo "\tremoving $p " . (string) $v . $dtLang . "\n";
                     $meta->delete($p, $v);
