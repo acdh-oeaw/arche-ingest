@@ -4,7 +4,7 @@
 
 * Clone this repository.
 * Run `composer update` in the repository root directory.
-* Fetch the ARCHE instance configuration by downloading `{ARCHE instance base URL}/desribe` (e.g. https://arche.acdh.oeaw.ac.at/api/describe) and save it as `config.yaml`.
+* Fetch the ARCHE instance configuration by downloading `{ARCHE instance base URL}/describe` (e.g. https://arche.acdh.oeaw.ac.at/api/describe) and save it as `config.yaml`.
 * Open and adjust the top section of a `*_sample.php` file of your choice:
     * set `$configLocation = './config.yaml';` and `$composerLocation  = './';`
     * you can also set `$runComposerUpdate = false;` (as you have just did it)
