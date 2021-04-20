@@ -23,7 +23,7 @@
 * `reimport_single_binary.php` reingests a single resource's binary content (to be used when file name and/or location changed)
 
 
-## Instructions for the arche-ingestion@herkules.acdh.oeaw.ac.at
+## Instructions for the repo-ingestion@hephaistos.acdh.oeaw.ac.at
 
 Skip the instructions above.
 
@@ -42,7 +42,7 @@ Then adjust the settings at the top of a file (leave `$configLocation` and `$com
 
 * Prepare a file with input data.  
   In points below it's assumed this file name is `input` and it's stored in the same directory as the import script.  
-  The file should contain of four lines:
+  The file should contain four lines:
   ```
   {instanceNumber}
   yes
