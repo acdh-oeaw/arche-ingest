@@ -10,7 +10,7 @@
     * you can also set `$runComposerUpdate = false;` (as you have just did it)
     * adjust other options according to your preferences
 * Run the file, e.g. `php -f import_metadata_sample.php`.
-    * Every script will ask you for credentials - you should get them from the ARCHE instance admin.:w
+    * Every script will ask you for credentials - you should get them from the ARCHE instance admin.
     * If you need to create yourself a user account please take a look at https://github.com/acdh-oeaw/arche-docker-config/blob/arche/initScripts/users.yaml.sample
 
 ### Sample scripts provided
@@ -21,7 +21,6 @@
 * `import_binary_sample.php` imports binary data from the disk
 * `import_metadata_sample.php` imports metadata from a ttl file
 * `reimport_single_binary.php` reingests a single resource's binary content (to be used when file name and/or location changed)
-
 
 ## Instructions for the arche-ingestion@herkules.acdh.oeaw.ac.at
 
