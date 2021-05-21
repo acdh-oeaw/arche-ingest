@@ -18,8 +18,8 @@ if ($runComposerUpdate) {
 }
 
 use \EasyRdf\Graph;
-use \acdhOeaw\acdhRepoLib\Repo;
-use \acdhOeaw\acdhRepoLib\RepoResource;
+use \acdhOeaw\arche\lib\Repo;
+use \acdhOeaw\arche\lib\RepoResource;
 require_once $composerLocation . '/vendor/autoload.php';
 
 $cfg     = json_decode(json_encode(yaml_parse_file($configLocation)));

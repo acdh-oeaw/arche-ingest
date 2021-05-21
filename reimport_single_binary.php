@@ -22,8 +22,8 @@ if ($runComposerUpdate) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use \acdhOeaw\acdhRepoLib\Repo;
-use \acdhOeaw\acdhRepoLib\BinaryPayload;
+use \acdhOeaw\arche\lib\Repo;
+use \acdhOeaw\arche\lib\BinaryPayload;
 require_once $composerLocation . '/vendor/autoload.php';
 
 $repo = Repo::factoryInteractive($configLocation);

@@ -19,7 +19,7 @@ if ($runComposerUpdate) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use \acdhOeaw\acdhRepoLib\Repo;
+use \acdhOeaw\arche\lib\Repo;
 require_once $composerLocation . '/vendor/autoload.php';
 
 $cfg     = json_decode(json_encode(yaml_parse_file($configLocation)));

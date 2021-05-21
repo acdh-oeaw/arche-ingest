@@ -40,10 +40,10 @@ if ($runComposerUpdate) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use \acdhOeaw\acdhRepoLib\Repo;
-use \acdhOeaw\acdhRepoIngest\Indexer;
+use \acdhOeaw\arche\lib\Repo;
+use \acdhOeaw\arche\lib\ingest\Indexer;
 require_once $composerLocation . '/vendor/autoload.php';
-$rc = new ReflectionClass('\acdhOeaw\acdhRepoIngest\Indexer');
+$rc = new ReflectionClass('\acdhOeaw\arche\lib\ingest\Indexer');
 
 Indexer::$debug = $verbose;
 $repo = Repo::factoryInteractive($configLocation);

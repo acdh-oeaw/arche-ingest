@@ -1,5 +1,9 @@
 {
     "require": {
-        "acdh-oeaw/arche-lib-ingest": "^1.3"
+        "acdh-oeaw/arche-lib-ingest": "^2.0.0-alpha",
+        "acdh-oeaw/arche-lib": "^2.0.0-alpha"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "*"
     }
 }

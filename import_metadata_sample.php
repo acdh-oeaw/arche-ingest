@@ -20,10 +20,10 @@ if ($runComposerUpdate) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use \acdhOeaw\acdhRepoLib\Repo;
-use \acdhOeaw\acdhRepoIngest\MetadataCollection;
+use \acdhOeaw\arche\lib\Repo;
+use \acdhOeaw\arche\lib\ingest\MetadataCollection;
 require_once $composerLocation . '/vendor/autoload.php';
-$rc = new ReflectionClass('\acdhOeaw\acdhRepoIngest\MetadataCollection');
+$rc = new ReflectionClass('\acdhOeaw\arche\lib\ingest\MetadataCollection');
 
 MetadataCollection::$debug = $verbose;
 $repo = Repo::factoryInteractive($configLocation);
