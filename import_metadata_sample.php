@@ -2,7 +2,7 @@
 // This script imports metadata from a ttl file
 
 // config
-$ttlLocation = 'WRITE_DOWN_PATH_TO_YOUR_TTL_HERE';
+$ttlLocation = 'failing_sample.rdf';
 $errMode     = 'ERRMODE_PASS'; // ERRMODE_FAIL (fail on first error) or ERRMODE_PASS (continue on error and fail at the end)
 
 // advanced config (generally shouldn't need adjustments)
@@ -10,7 +10,7 @@ $configLocation    = '/ARCHE/config.yaml';
 $composerLocation  = '/ARCHE'; // directory where you run "composer update"
 $autocommit        = 0;        // don't touch until you encounter problems
 $verbose           = true;     // should output be verbose? 'true' is generally better :)
-$runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
+$runComposerUpdate = false;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
 
 // NO CHANGES NEEDED BELOW THIS LINE
 
@@ -39,6 +39,7 @@ try {
     echo "\n######################################################\nImport ended\n######################################################\n";
 } catch (GuzzleHttp\Exception\RequestException $e) {
     echo "\n######################################################\nImport failed\n######################################################\n";
+    echo "HTTP response code " . $e->getResponse()->getStatusCode() . "\n";
     echo $e->getResponse()->getBody() . "\n";
 }
 
