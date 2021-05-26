@@ -10,8 +10,6 @@ $filePath   = 'reimport_single_binary.php';
 $mimeType          = 'application/php'; // mime type of the binary (when null, it will be guesed from the file content)
 $configLocation    = '/ARCHE/config.yaml';
 $composerLocation  = '/ARCHE'; // directory where you run "composer update"
-$configLocation    = '/home/zozlak/roboty/ACDH/repo/arche-lib-ingest/tests/config.yaml';
-$composerLocation  = '/home/zozlak/roboty/ACDH/repo/arche-lib-ingest'; // directory where you run "composer update"
 $runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
 
 // NO CHANGES NEEDED BELOW THIS LINE
