@@ -7,7 +7,7 @@ $resourceId = 'http://127.0.0.1/api/417';
 $filePath   = 'reimport_single_binary.php';
 
 // advanced config (generally shouldn't need adjustments)
-$mimeType          = 'application/php'; // mime type of the binary (when null, it will be guesed from the file content)
+$mimeType          = null;     // mime type of the binary (when null, it will be guesed from the file content)
 $configLocation    = '/ARCHE/config.yaml';
 $composerLocation  = '/ARCHE'; // directory where you run "composer update"
 $runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
