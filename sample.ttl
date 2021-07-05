@@ -1,0 +1,683 @@
+@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.
+@prefix acdhi: <https://id.acdh.oeaw.ac.at/>.
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix dc: <http://purl.org/dc/elements/1.1/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+
+<https://id.acdh.oeaw.ac.at/wms-org-agentur> a acdh:Organisation;
+	acdh:hasTitle "Agentur, die so geheim ist, dass sie nicht mal einen richtigen Namen hat"@de;
+    acdh:hasTitle "Scrooge McDuck's secret agency"@en;
+    acdh:hasAlternativeTitle "Agentur"@de;
+	acdh:hasAlternativeTitle "Agency"@en;
+    acdh:hasAddressLine1 "Grosser Platz 2";
+	acdh:hasCity "Entenhausen"@de;
+    acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+	acdh:hasUrl "https://www.duckipedia.de/Agent_DoppelDuck".
+
+<https://id.acdh.oeaw.ac.at/wms-org-oma> a acdh:Organisation;
+	acdh:hasTitle "Organisation zum Kampf gegen Monster aller Art"@de;
+    acdh:hasAlternativeTitle "Tamers of Nonhuman Threats"@en;
+    acdh:hasAlternativeTitle "O.M.A."@de;
+    acdh:hasAlternativeTitle "TNT"@en;
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasCity "Entenhausen"@de;
+    acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "oma@agentur.ac.at";
+	acdh:hasUrl "https://www.duckipedia.de/O.M.A.";
+    acdh:isMemberOf acdhi:wms-org-agentur.
+
+<https://id.acdh.oeaw.ac.at/wms-doduck> a acdh:Person;
+    acdh:hasTitle "Donald Duck"@und;
+    acdh:hasFirstName "Donald"@und;
+    acdh:hasLastName "Duck"@und;
+    acdh:hasPersonalTitle "DI";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+    acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "donald.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/de/Donald_Duck";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-dagduck> a acdh:Person;
+    acdh:hasTitle "Dagobert Duck"@und;
+	acdh:hasFirstName "Dagobert"@und;
+    acdh:hasLastName "Duck"@und;
+    acdh:hasPersonalTitle "Mag. Dr.";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+	acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "dagobert.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/de/Dagobert_Duck";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-daiduck> a acdh:Person;
+    acdh:hasIdentifier acdhi:wms-daiduck;
+	acdh:hasTitle "Daisy Duck"@und;
+    acdh:hasFirstName "Daisy"@und;
+    acdh:hasLastName "Duck"@und;
+    acdh:hasPersonalTitle "Mag.";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "daisy.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/en/Daisy_Duck";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-ticduck> a acdh:Person;
+    acdh:hasTitle "Tick Duck"@und;
+	acdh:hasFirstName "Tick"@und;
+    acdh:hasLastName "Duck"@und;
+    acdh:hasPersonalTitle "Mag.";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "tick.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/en/Huey,_Dewey,_and_Louie";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-triduck> a acdh:Person;
+    acdh:hasTitle "Trick Duck"@und;
+    acdh:hasFirstName "Trick"@und;
+    acdh:hasLastName "Duck"@und;
+    acdh:hasPersonalTitle "Ing. Mag." ;
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "trick.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/en/Huey,_Dewey,_and_Louie";
+    acdh:isMemberOf acdhi:wms-org-oma.
+
+# not used in any collection or resource	
+<https://id.acdh.oeaw.ac.at/wms-traduck> a acdh:Person;
+	acdh:hasTitle "Track Duck"@und;
+    acdh:hasFirstName "Track"@und;
+    acdh:hasLastName "Duck"@und;
+	acdh:hasPersonalTitle "Mag.";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "track.duck@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/en/Huey,_Dewey,_and_Louie";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-hhuhn> a acdh:Person;
+    acdh:hasIdentifier acdhi:wms-hhuhn;
+    acdh:hasTitle "Henriette Huhn"@und;
+    acdh:hasFirstName "Henriette"@und;
+    acdh:hasLastName "Huhn"@und;
+	acdh:hasPersonalTitle "Dr.";
+    acdh:hasAddressLine1 "Kleine Strasse 19";
+	acdh:hasAddressLine2 "c/o O.M.A.";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:hasRegion "Enten-Universum"@de;
+    acdh:hasRegion "Duck Universe"@en;
+    acdh:hasCountry "Calisota"@en;
+    acdh:hasPostcode "100000";
+    acdh:hasEmail "henriette.huhn@agentur.ac.at";
+    acdh:hasUrl "https://www.wikiwand.com/en/List_of_Donald_Duck_universe_characters#/Clara_Cluck";
+    acdh:isMemberOf acdhi:wms-org-oma.
+	
+<https://id.acdh.oeaw.ac.at/wms-pquack> a acdh:Person;
+    acdh:hasTitle "Primus von Quack"@und;
+	acdh:hasFirstName "Primus"@und;
+	acdh:hasLastName "Quack, von"@und;
+	acdh:hasPersonalTitle "Prof.".
+	
+<https://id.acdh.oeaw.ac.at/wms-dduesentrieb> a acdh:Person;
+	acdh:hasTitle "Daniel Düsentrieb"@und;
+	acdh:hasFirstName "Daniel"@und;
+	acdh:hasLastName "Düsentrieb"@und;
+	acdh:hasUrl "https://www.wikiwand.com/en/Gyro_Gearloose".
+	
+<https://id.acdh.oeaw.ac.at/wms-ggans> a acdh:Person;
+    acdh:hasTitle "Gustav Gans"@und;
+    acdh:hasFirstName "Gustav"@und;
+    acdh:hasLastName "Gans"@und;
+	acdh:hasUrl "https://www.wikiwand.com/en/Gladstone_Gander".
+
+# for location see https://www.wikiwand.com/en/Donald_Duck_universe#/Duckburg
+<https://id.acdh.oeaw.ac.at/wms-duckburg> a acdh:Place;
+    acdh:hasTitle "Duckburg"@en;
+    acdh:hasTitle "Entenhausen"@de;
+	acdh:hasAlternativeTitle "Eureka"@en;
+    acdh:hasIdentifier <https://www.geonames.org/5563397>;
+    acdh:hasLongitude "40.80207";
+    acdh:hasLatitude "-124.16367";
+	acdh:hasWKT "POINT(-124.16367 40.80207)";
+    acdh:hasCountry "Calisota"@en.
+
+<https://id.acdh.oeaw.ac.at/wms-pub-quackduesentrieb1961> a acdh:Publication;
+	acdh:hasTitle "Das schlaue Buch"@de;
+    acdh:hasTitle "Junior Woodchucks Guidebook"@en;
+	acdh:hasNonLinkedIdentifier "ISBN-13:0101010";
+    acdh:hasNonLinkedIdentifier "ISBN-10:0101020";
+    acdh:hasAuthor acdhi:wms-pquack;
+    acdh:hasAuthor acdhi:wms-dduesentrieb;
+    acdh:hasIssuedDate "1961-02-02";
+    acdh:hasCity "Entenhausen"@de;
+	acdh:hasCity "Duckburg"@en;
+	acdh:isDerivedPublication acdhi:wollmilchsau;
+    acdh:hasPublisher "Agency Publishing House".
+	
+<https://id.acdh.oeaw.ac.at/wms-pub-gans1967> a acdh:Publication;
+    acdh:hasTitle "My great love DD"@en;
+    acdh:hasAuthor acdhi:wms-ggans;
+    acdh:hasSeriesInformation "The unfortunates, Vol. 3, No. 1"@en;
+    acdh:hasIssuedDate "1967-12-12";
+	acdh:hasAddress "Kleine Strasse 19, c/o O.M.A.";
+    acdh:hasPages "1-1000";
+	acdh:isDerivedPublication acdhi:project-wollmilchsauzucht;
+    acdh:hasPublisher "Publishing House of Desperation".
+
+<https://id.acdh.oeaw.ac.at/project-wollmilchsauzucht> a acdh:Project;
+    acdh:hasTitle "Zucht einer eierlegenden Wollmilchsau"@de;
+    acdh:hasAlternativeTitle "Wie man eierlegende Wollmilchsäue bekommen kann."@de;
+    acdh:hasDescription "This is a project that aims to create a eierlegende Wollmilchsau, a creature that gives you eggs, milk and wool, as well as meat."@en;
+    acdh:hasUrl "https://www.duckipedia.de/O.M.A.";
+    acdh:hasContact acdhi:wms-doduck;
+    acdh:hasPrincipalInvestigator acdhi:wms-doduck;
+    acdh:hasFunder acdhi:wms-org-oma;
+    acdh:hasStartDate "2017-09-28";
+#acdh:hasEndDate "2017-09-28";
+    acdh:hasLifeCycleStatus <https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/active>;
+    acdh:hasActor acdhi:wms-org-oma;
+	acdh:hasSubject "Digital Preservation"@en;
+	acdh:hasSubject "Repositories"@en;
+    acdh:hasSubject "Metadata"@en;
+    acdh:hasSpatialCoverage acdhi:wms-duckburg;
+    acdh:hasTemporalCoverage "New digital age"@en;
+	acdh:hasTemporalCoverageIdentifier "Q956129";
+	acdh:hasCoverage acdhi:wms-duckburg;
+    acdh:hasCoverageStartDate "1969-01-01";
+    acdh:hasCoverageEndDate "2017-12-31";
+    acdh:hasRelatedDiscipline <https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/202022>;
+    acdh:hasLanguage <https://vocabs.acdh.oeaw.ac.at/iso6393/eng>;
+    acdh:hasLanguage <https://vocabs.acdh.oeaw.ac.at/iso6393/deu>;
+    acdh:hasAppliedMethod "TODO: CONCEPTS";
+    acdh:hasAppliedMethodDescription "Some obscure method was applied, so nobody can verify the results."@en;
+    acdh:hasTechnicalInfo "nothing special"@en;
+    acdh:hasTechnicalInfo "You just need a standard computer."@en;
+    acdh:hasEditorialPractice "This is not an editorial project"@en;
+    acdh:hasNote "Nothing."@en;
+#acdh:hasNote "Some note."@en; (max. 1 allowed)
+#acdh:hasDerivedPublication acdhi:wms-pub-gans1967;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+	acdh:hasRelatedCollection acdhi:wollmilchsau.
+	
+<https://id.acdh.oeaw.ac.at/wollmilchsau> a acdh:TopCollection;
+	acdh:hasTitle "Die eierlegende Wollmilchsau"@de;
+	acdh:hasDescription """This collection is purely fictional and is only used for development of ARCHE to test display of attributes and other stuff.
+	We also have a linebreak here
+	And another one :-)"""@en;
+	acdh:hasAppliedMethod "Scanning";
+	acdh:hasAppliedMethodDescription "some random method"@en;
+	acdh:hasArrangement "Just a random collection of files."@en;
+	acdh:hasEditorialPractice "Freestyle!"@en;
+	acdh:hasExtent "3 folders and 16 files"@en;
+	acdh:hasNamingScheme "Used verbose names without special characters."@en;
+	acdh:hasNote "Remember, this collection is fictitious."@en;
+#acdh:hasSeriesInformation "What series?"@en;
+	acdh:hasTableOfContents """
+		Formats
+			formatsACDH.xml
+            FormatsACDH-layout.pdf
+            FormatsACDH-layout.xlsx
+		images
+			65_2_1_shot1.jpg
+			65_2_1_shot1.xmp
+			duck_sissi.jpg
+			EntenhausenPlanDetail.png
+			EntenhausenPlanDetail_annotation.ttl
+			lifecycle.png
+			oais.png
+			sissiObjectLIDO.xml
+		Metadata
+			diagramOntology-cardinality.png
+		ACDH-DepositionAgreement.docx
+		ACDH-DepositionAgreement_2.docx
+		acdhUserFlow_v4.pdf
+		archiving-RL.pdf
+            """@en ;
+	acdh:hasCollectedStartDate "2017-09-28";
+	acdh:hasCollectedEndDate "2017-10-03";
+	acdh:hasCreatedStartDate "2017-09-28";
+	acdh:hasCreatedEndDate "2017-10-03";
+	acdh:hasCompleteness "This collection is not (!) comp lete."@en;
+	acdh:hasLifeCycleStatus <https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/active>;
+	acdh:hasContact acdhi:wms-doduck;
+	acdh:hasAuthor acdhi:wms-dagduck;
+	acdh:hasEditor acdhi:wms-doduck;
+	acdh:hasCreator acdhi:wms-daiduck;
+	acdh:hasCreator acdhi:wms-ticduck;
+	acdh:hasContributor acdhi:wms-triduck;
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+#acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasFunder acdhi:wms-org-oma;
+	acdh:hasActor acdhi:wms-org-oma;
+	acdh:hasSubject "Repositories"@en;
+	acdh:hasSubject "Metadata"@en;
+	acdh:hasSubject "Digital Preservation"@en;
+	acdh:hasSpatialCoverage acdhi:wms-duckburg;
+	acdh:hasTemporalCoverage "New digital age"@en;
+	acdh:hasRelatedDiscipline <https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/202022>;
+	acdh:hasLanguage <https://vocabs.acdh.oeaw.ac.at/iso6393/eng>;
+	acdh:hasLanguage <https://vocabs.acdh.oeaw.ac.at/iso6393/deu>;
+	acdh:hasUsedHardware "Computer (dell workstation)";
+	acdh:hasUsedSoftware "MS Word, Paint, OWLGrEd, MS Excel";
+	acdh:hasTechnicalInfo "You just need a standard computer."@en;
+	acdh:hasVersion "0.75";
+	acdh:hasVersionInfo "several new object and data properties added in relation to previous version 0.5"@en;
+	acdh:hasAcceptedDate "2017-10-03";
+	acdh:hasSubmissionDate "2017-10-03";
+	acdh:hasTransferMethod "direct";
+	acdh:hasTransferDate "2017-10-04";
+	acdh:hasCurator acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+	acdh:hasCustomCitation "author = {Dagduck}";
+	acdh:hasRelatedProject acdhi:project-wollmilchsauzucht.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Formats> a acdh:Collection;
+	acdh:hasTitle "Formats"@en;
+	acdh:hasDescription "Collection of format files for eierlegende Wollmilchsau."@en;
+#acdh:hasCreatedDate  "2017-10-03";
+	acdh:hasCreatedStartDate "2017-10-03";
+	acdh:hasContact acdhi:wms-hhuhn;
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+#acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/images>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Metadata>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#no Pid?
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images> a acdh:Collection;
+	acdh:hasTitle "images"@en;
+	acdh:hasDescription "Collection of image files for eierlegende Wollmilchsau."@en;
+#acdh:hasCreatedDate "2017-10-03";
+	acdh:hasCreatedStartDate "2017-10-03";
+	acdh:hasContact acdhi:wms-dagduck;
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+#acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Metadata>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Metadata> a acdh:Collection;
+	acdh:hasTitle "Metadata"@en;
+	acdh:hasDescription "Collection of metadata files for eierlegende Wollmilchsau."@en;
+#acdh:hasCreatedDate "2017-10-03";
+	acdh:hasCreatedStartDate "2017-10-03";
+	acdh:hasContact acdhi:wms-doduck;
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+#acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/images>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/ACDH-DepositionAgreement.docx> a acdh:Resource;
+	acdh:hasTitle "ACDH-DepositionAgreement.docx"@en;
+	acdh:hasDescription "The charter of wollmilchsau."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "2016-10-03";
+	acdh:hasCreatedStartDate "2016-10-03";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasOaiSet <https://vocabs.acdh.oeaw.ac.at/archeoaisets/Schema>;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+	acdh:hasCharacterEncoding "UTF-8";
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/acdhUserFlow_v4.pdf>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/archiving-RL.pdf>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/ACDH-DepositionAgreement_2.docx> a acdh:Resource;
+	acdh:hasTitle "ACDH-DepositionAgreement_2.docx"@en;
+	acdh:hasDescription "The charter of wollmilchsau."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "2016-10-03";
+	acdh:hasCreatedStartDate "2016-10-03";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasOaiSet <https://vocabs.acdh.oeaw.ac.at/archeoaisets/Schema>;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-daiduck;
+	acdh:isNewVersionOf <https://id.acdh.oeaw.ac.at/wollmilchsau/ACDH-DepositionAgreement.docx>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/acdhUserFlow_v4.pdf>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/archiving-RL.pdf>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+	
+<https://id.acdh.oeaw.ac.at/wollmilchsau/acdhUserFlow_v4.pdf> a acdh:Resource;
+	acdh:hasTitle "acdhUserFlow_v4.pdf"@en;
+	acdh:hasDescription "How Wollmilchsau learns to swim."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "2017-11-03";
+	acdh:hasCreatedStartDate "2017-11-03";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:documents acdhi:wollmilchsau;
+	acdh:isSourceOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images/lifecycle.png>;
+	acdh:hasCustomCitation "@Booklet{UserFlow2017,
+  author   = {wms-org-oma},
+  title    = {acdhUserFlow_v4.pdf},
+  year     = {2017},
+  note = {How Wollmilchsau learns to swim.}}";
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/ACDH-DepositionAgreement.docx>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/archiving-RL.pdf>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+	
+<https://id.acdh.oeaw.ac.at/wollmilchsau/archiving-RL.pdf> a acdh:Resource;
+	acdh:hasTitle "archiving-RL.pdf"@en;
+	acdh:hasDescription  "One day Wollmilchsau decided to archive, and this is what happened."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "1997-11-03";
+	acdh:hasCreatedStartDate "1997-11-03";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:continues <https://id.acdh.oeaw.ac.at/wollmilchsau/acdhUserFlow_v4.pdf>;
+#doorkeeper-test
+	acdh:hasMetadataCreator acdhi:fkeiner;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/ACDH-DepositionAgreement.pdf>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/acdhUserFlow_v4.pdf>;
+	acdh:isPartOf acdhi:wollmilchsau.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/formatsACDH.xml> a acdh:Resource;
+	acdh:hasTitle "formatsACDH.xml"@en;
+	acdh:hasDescription "The formats Wollmilchsau likes to use."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "2009-12-05";
+	acdh:hasCreatedStartDate "2009-12-05";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.pdf>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.xlsx>;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.pdf> a acdh:Resource;
+	acdh:hasTitle "formatsACDH-layout.pdf"@en;
+	acdh:hasDescription "The layout of formats Wollmilchsau likes to use."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
+#acdh:hasCreatedDate "2009-12-05";
+	acdh:hasCreatedStartDate "2009-12-05";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasDigitisingAgent acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH.xml>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.xlsx>;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.xlsx> a acdh:Resource;
+	acdh:hasTitle "FormatsACDH-layout.xlsx"@en;
+	acdh:hasDescription "The layout of formats Wollmilchsau likes to use."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/dataset>;
+#acdh:hasCreatedDate "2009-12-05";
+	acdh:hasCreatedStartDate "2009-12-05";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH-layout.pdf>;
+#acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats/FormatsACDH.xml>;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/Formats>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/lifecycle.png> a acdh:Resource;
+	acdh:hasTitle "lifecycle.png"@en;
+	acdh:hasDescription "The wollmilchsau was born, then it grew and grew until it could reach the sun. And then it learned how to also make fireballs. And this pic represents this process."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2009-12-05";
+	acdh:hasCreatedStartDate "2009-12-05";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/restricted>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:hasCreatedStartDateOriginal "2009-12-03";
+	acdh:hasCreatedEndDateOriginal "2009-12-05";
+	acdh:hasDate "2009-12-05";
+	acdh:hasRestrictionRole "curators";
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/65_2_1_shot1.jpg> a acdh:Resource;
+	acdh:hasTitle "65_2_1_shot1.jpg"@en;
+	acdh:hasDescription "something interesting captured on camera"@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2021-04-09";
+	acdh:hasCreatedStartDate "2021-04-09";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/65_2_1_shot1.xmp> a acdh:Resource;
+	acdh:hasTitle "65_2_1_shot1.xmp"@en;
+	acdh:relation <https://id.acdh.oeaw.ac.at/wollmilchsau/images/65_2_1_shot1.jpg>;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+	acdh:hasDescription "additional metadata following the Extensible Metadata Platform standard"@en;
+#acdh:hasCreatedDate "2021-04-09";
+	acdh:hasCreatedStartDate "2021-04-09";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+	
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/oais.png> a acdh:Resource;
+	acdh:hasTitle "oais.png"@en;
+	acdh:hasDescription "The fireballs were rather hot, so sometimes wollmilchsau said oais when it made one. See this picture to see how that looked like!"@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2009-12-05";
+	acdh:hasCreatedStartDate "2009-12-05";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+			
+<https://id.acdh.oeaw.ac.at/wollmilchsau/Metadata/diagramOntology-cardinality.png> a acdh:Resource;
+	acdh:hasTitle "diagramOntology-cardinality.png"@en;
+	acdh:hasDescription "Ontology for eierlegende Wollmilchsau."@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2017-10-03";
+	acdh:hasCreatedStartDate "2017-10-03";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-daiduck;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/Metadata>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/duck_sissi.jpg> a acdh:Resource;
+	acdh:hasTitle "duck_sissi.jpg"@en;
+	acdh:hasDescription "Der Portraitist Franz Xaver Winterducker berichtet, Kaiserin Elisabeth habe sich für dieses Bildnis auf einen Stuhl gestellt, um ihr Lieblingskleid besser zur Geltung zu bringen. Von dem Motiv erstellt der Maler für zahlungskräftige Kunden mehrere Versionen. Das Geheimnis, welche Version die richtige ist, nimmt er mit ins Grab."@de;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2021-05-12";
+	acdh:hasCreatedStartDate "2021-05-12";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/inc>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:hasUrl "https://www.duckomenta-shop.de/shop/gem%C3%A4lde-repliken-ungerahmt/klassische-meister";
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/sissiObjectLIDO.xml> a acdh:Metadata;
+	acdh:hasTitle "sissiObjectLIDO.xml"@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2021-05-12";
+	acdh:hasCreatedStartDate "2021-05-12";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:hasSchema "http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd";
+	acdh:isObjectMetadataFor <https://id.acdh.oeaw.ac.at/wollmilchsau/images/duck_sissi.jpg>;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/EntenhausenPlanDetail.png> a acdh:Resource;
+	acdh:hasTitle "EntenhausenPlanDetail.png"@de;
+	acdh:hasDescription "A toy map from Entenhausen created by Jürgen Wollina. Low-resolution preview downloaded from https://www.donald.org/stadtplan"@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+#acdh:hasCreatedDate "2020-05-09";
+	acdh:hasCreatedStartDate "2020-05-09";
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/inc>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/images/EntenhausenPlanDetail_annotation.ttl> a acdh:Metadata;
+	acdh:hasTitle "EntenhausenPlanDetail_annotation.ttl"@en;
+	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+	acdh:hasLicensor acdhi:wms-org-oma;
+	acdh:hasOwner acdhi:wms-org-oma;
+	acdh:hasRightsHolder acdhi:wms-org-agentur;
+	acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasMetadataCreator acdhi:wms-dduesentrieb;
+	acdh:isMetadataFor <https://id.acdh.oeaw.ac.at/wollmilchsau/images/EntenhausenPlanDetail.png>;
+	acdh:hasSchema "http://www.w3.org/ns/oa#";
+	acdh:isPartOf <https://id.acdh.oeaw.ac.at/wollmilchsau/images>.
+#acdh:hasPid "create".
+
+<https://id.acdh.oeaw.ac.at/wollmilchsau/title-image.jpg> a acdh:Resource;
+    acdh:hasTitle "Die eierlegende Wollmilchsau"@de;
+    acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/image>;
+	acdh:hasCreator acdhi:wms-doduck;
+    acdh:hasCreator acdhi:wms-daiduck;
+    acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
+	acdh:hasAccessRestriction <https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/public>;
+    acdh:hasLicensor acdhi:wms-org-oma;
+    acdh:hasOwner acdhi:wms-org-oma;
+    acdh:hasRightsHolder acdhi:wms-org-agentur;
+    acdh:hasDepositor acdhi:wms-hhuhn;
+	acdh:hasHosting acdhi:wms-org-oma;
+	acdh:hasMetadataCreator acdhi:wms-hhuhn;
+	acdh:isPartOf acdhi:wollmilchsau;
+    acdh:isTitleImageOf acdhi:wollmilchsau .
