@@ -23,6 +23,9 @@ $sizeLimit = -1;
 $filenameFilter = '';
 // MATCH or SKIP - should the $filenamefilter match resources to be included or skipped during the ingestion
 $filterType = 'MATCH';
+// Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource)
+// In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
+$assignDefaultClass = false;
 
 // advanced config (generally shouldn't need adjustments)
 $versioning = 'VERSIONING_NONE'; // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
@@ -54,6 +57,13 @@ if (!empty($parentResourceId)) {
     $ind->setParent($resource);
 } else {
     $ind->setRepo($repo);
+}
+if ($assignDefaultClass) {
+    $ind->setBinaryClass($repo->getSchema()->ingest->defaultBinaryClass);
+    $ind->setCollectionClass($repo->getSchema()->ingest->defaultCollectionClass);
+} else {
+    $ind->setBinaryClass('');
+    $ind->setCollectionClass('');
 }
 $ind->setSkip($rc->getConstant($skip));
 $ind->setVersioning($rc->getConstant($versioning));
