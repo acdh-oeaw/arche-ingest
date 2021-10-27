@@ -48,7 +48,7 @@ Then adjust the settings at the top of a file (leave `$configLocation` and `$com
   {yourLogin}
   {yourPassword}
   ```
-  where `{instanceNumber}` is `1` for the development instance, `2` for the production instance and `3` for the curation instance, e.g.
+  where `{instanceNumber}` is `1` for the development instance, `2` for the curation instance and `3` for the production instance, e.g.
   ```
   2
   yes
