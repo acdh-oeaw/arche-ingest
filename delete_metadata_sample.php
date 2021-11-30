@@ -40,7 +40,7 @@ foreach ($graph->resources() as $r) {
                     if ($v instanceof \EasyRdf\Literal) {
                         $dtLang = !empty($v->getLang()) ? '@' . $v->getLang() : '';
                         $dtLang .= !empty($v->getDatatype()) ? '^^' . $v->getDatatype() : '';
-                    } else {
+                    } elseif($p !== $repo->getSchema()->id) {
                         $dr = $repo->getResourceById($v->getUri());
                         $v = $meta->getGraph()->resource($dr->getUri());
                     }
