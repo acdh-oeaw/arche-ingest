@@ -22,7 +22,7 @@
 * `import_metadata_sample.php` imports metadata from a ttl file
 * `reimport_single_binary.php` reingests a single resource's binary content (to be used when file name and/or location changed)
 
-## Instructions for the arche-ingestion@herkules.acdh.oeaw.ac.at
+## Instructions for the repo-ingestion@hephaistos.arz.oeaw.ac.at
 
 Skip the instructions above.
 
