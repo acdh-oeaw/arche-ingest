@@ -14,7 +14,7 @@ $recursiveProperty = null;     // RDF property used for recursive deletion (if n
 $runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
 // NO CHANGES NEEDED BELOW THIS LINE
 
-$composerLocation = file_exists($composerLocation) ? $composerLocation : __DIR__;
+$composerLocation = file_exists($composerLocation) ? $composerLocation : (getenv('COMPOSER_DIR') ?: __DIR__);
 if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdating libraries\n######################################################\n";
     exec('cd ' . escapeshellarg($composerLocation) . ' && composer update --no-dev');

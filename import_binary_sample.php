@@ -42,7 +42,7 @@ $concurrency       = 3;                 // number of parallel requests (Indexer-
 $retriesOnConflict = 3;                 // number of parallel requests (Indexer->import() 3rd parameter)
 // NO CHANGES NEEDED BELOW THIS LINE
 
-$composerLocation = file_exists($composerLocation) ? $composerLocation : __DIR__;
+$composerLocation = file_exists($composerLocation) ? $composerLocation : (getenv('COMPOSER_DIR') ?: __DIR__);
 if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdating libraries\n######################################################\n";
     exec('cd ' . escapeshellarg($composerLocation) . ' && composer update --no-dev');
