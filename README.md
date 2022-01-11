@@ -61,7 +61,7 @@ A fragment of your workflow;s yaml config may look like that:
 ```yaml
     - name: ingestion  dependencies
       run: |
-        composer require "acdh-oeaw/arche-ingest
+        composer require acdh-oeaw/arche-ingest
     - name: ingest arche
       run: |
         vendor/bin/arche-import-metadata myRdfFile.ttl https://arche-dev.acdh-dev.oeaw.ac.at/api ${{secrets.ARCHE_LOGIN}} ${{secrets.ARCHE_PASSWORD}}
