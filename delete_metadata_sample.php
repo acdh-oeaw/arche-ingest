@@ -1,38 +1,38 @@
+#!/usr/bin/php
 <?php
-// This script removes metadata properties without deleting repository resources
 
+// This script removes metadata properties without deleting repository resources
 // config
 $ttlFile = 'delete_metadata_sample.ttl';
 
 // advanced config (generally shouldn't need adjustments)
 $configLocation    = '/ARCHE/config.yaml';
-$composerLocation  = '/ARCHE'; // directory where you run "composer update"
+$composerLocation  = '/ARCHE'; // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
 $runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
-
 // NO CHANGES NEEDED BELOW THIS LINE
 
-if ($runComposerUpdate) {
+$composerLocation = file_exists($composerLocation) ? $composerLocation : __DIR__;
+if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdating libraries\n######################################################\n";
-    system('cd ' . escapeshellarg($composerLocation) . ' && composer update --no-dev');
+    exec('cd ' . escapeshellarg($composerLocation) . ' && composer update --no-dev');
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use \EasyRdf\Graph;
-use \acdhOeaw\arche\lib\Repo;
-use \acdhOeaw\arche\lib\RepoResource;
-require_once $composerLocation . '/vendor/autoload.php';
+use EasyRdf\Graph;
+use acdhOeaw\arche\lib\Repo;
+use acdhOeaw\arche\lib\RepoResource;
+require_once "$composerLocation/vendor/autoload.php";
 
-$cfg     = json_decode(json_encode(yaml_parse_file($configLocation)));
-$graph   = new Graph();
+$graph = new Graph();
 $graph->parseFile($ttlFile);
-$repo    = Repo::factoryInteractive($configLocation);
+$repo  = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
 
 foreach ($graph->resources() as $r) {
     if (count($r->propertyUris()) > 0) {
         echo "Removing metadata from " . $r->getUri() . "\n";
         $repo->begin();
         try {
-            $res = $repo->getResourceById($r->getUri());
+            $res  = $repo->getResourceById($r->getUri());
             $meta = $res->getMetadata();
             foreach ($r->propertyUris() as $p) {
                 foreach ($r->all($p) as $v) {
@@ -40,16 +40,16 @@ foreach ($graph->resources() as $r) {
                     if ($v instanceof \EasyRdf\Literal) {
                         $dtLang = !empty($v->getLang()) ? '@' . $v->getLang() : '';
                         $dtLang .= !empty($v->getDatatype()) ? '^^' . $v->getDatatype() : '';
-                    } elseif($p !== $repo->getSchema()->id) {
+                    } elseif ($p !== $repo->getSchema()->id) {
                         $dr = $repo->getResourceById($v->getUri());
-                        $v = $meta->getGraph()->resource($dr->getUri());
+                        $v  = $meta->getGraph()->resource($dr->getUri());
                     }
                     echo "\tremoving $p " . (string) $v . $dtLang . "\n";
                     $meta->delete($p, $v);
                 }
             }
             $res->setMetadata($meta);
-            $res->updateMetadata(RepoResource::UPDATE_OVERWRITE); 
+            $res->updateMetadata(RepoResource::UPDATE_OVERWRITE);
 
             $repo->commit();
         } catch (Exception $e) {

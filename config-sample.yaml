@@ -1,0 +1,7 @@
+repositories:
+  - urlBase: https://arche-dev.acdh-dev.oeaw.ac.at
+    pathBase: /api/
+  - urlBase: https://arche-curation.acdh-dev.oeaw.ac.at
+    pathBase: /api/
+  - urlBase: https://arche.acdh.oeaw.ac.at
+    pathBase: /api/
