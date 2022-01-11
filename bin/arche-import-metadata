@@ -2,8 +2,14 @@
 BDIR=`dirname $0`
 BDIR=`realpath "$BDIR"`
 
-if [ "$#" == "0" ] ; then
-    php -f "$BDIR/../import_metadata_sample.php" -- -h
+if [ -d "$BDIR/../acdh-oeaw/arche-ingest" ] ; then
+    BDIR="$BDIR/../acdh-oeaw/arche-ingest"
 else
-    php -f "$BDIR/../import_metadata_sample.php" -- $@
+    BDIR="$BDIR/.."
+fi
+
+if [ "$#" == "0" ] ; then
+    php -f "$BDIR/import_metadata_sample.php" -- -h
+else
+    php -f "$BDIR/import_metadata_sample.php" -- $@
 fi
