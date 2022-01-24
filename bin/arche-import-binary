@@ -1,15 +1,18 @@
 #!/bin/bash
 BDIR=`dirname $0`
 BDIR=`realpath "$BDIR"`
+COMPOSER_DIR="$BDIR/.."
 
-if [ -d "$BDIR/../acdh-oeaw/arche-ingest" ] ; then
-    COMPOSER_DIR="$BDIR/../.."
-    BDIR="$BDIR/../acdh-oeaw/arche-ingest"
-else
-    COMPOSER_DIR="$BDIR/.."
-    BDIR="$BDIR/.."
-fi
+while [ ! -f "$COMPOSER_DIR/vendor/autoload.php"  ] ; do
+    COMPOSER_DIR=`realpath "$COMPOSER_DIR/.."`
+done
+COMPOSER_DIR=`realpath "$COMPOSER_DIR"`
 export COMPOSER_DIR
+if [ -d "$COMPOSER_DIR/vendor/acdh-oeaw/arche-ingest" ] ; then
+    BDIR="$COMPOSER_DIR/vendor/acdh-oeaw/arche-ingest"
+else
+    BDIR="$COMPOSER_DIR"
+fi
 
 if [ "$#" == "0" ] ; then
     php -f "$BDIR/import_binary_sample.php" -- -h
