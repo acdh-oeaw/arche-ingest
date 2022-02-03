@@ -46,7 +46,6 @@ if (count($argv) > 1) {
     $repo              = Repo::factoryFromUrl($args->repoUrl, ['auth' => $auth]);
 } else {
     $repo    = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
-    $errMode = $rc->getConstant($errMode);
 }
 $recursiveProperty = empty($recursiveProperty) ? $repo->getSchema()->parent : $recursiveProperty;
 $recursiveProperty = $recursively ? $recursiveProperty : '';
