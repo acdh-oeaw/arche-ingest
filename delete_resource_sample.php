@@ -22,6 +22,7 @@ if ($runComposerUpdate && count($argv) < 2) {
 }
 
 use acdhOeaw\arche\lib\Repo;
+use acdhOeaw\arche\lib\exception\ExceptionUtil;
 use zozlak\argparse\ArgumentParser;
 
 require_once "$composerLocation/vendor/autoload.php";
@@ -50,11 +51,16 @@ if (count($argv) > 1) {
 $recursiveProperty = empty($recursiveProperty) ? $repo->getSchema()->parent : $recursiveProperty;
 $recursiveProperty = $recursively ? $recursiveProperty : '';
 
-$res = $repo->getResourceById($resourceId);
-echo "\n######################################################\nDeleting\n######################################################\n";
-$repo->begin();
-echo "deleting " . $res->getUri() . " tombstone: " . (int) $removeTombstone . " references: " . (int) $removeReferences . " recusively following: $recursiveProperty\n";
-$res->delete($removeTombstone, $removeReferences, $recursiveProperty);
-$repo->commit();
-echo "\n######################################################\nDeleted\n######################################################\n";
-
+try {
+    echo "\n######################################################\nDeleting\n######################################################\n";
+    $res = $repo->getResourceById($resourceId);
+    $repo->begin();
+    echo "deleting " . $res->getUri() . " tombstone: " . (int) $removeTombstone . " references: " . (int) $removeReferences . " recusively following: $recursiveProperty\n";
+    $res->delete($removeTombstone, $removeReferences, $recursiveProperty);
+    $repo->commit();
+    echo "\n######################################################\nDeleted\n######################################################\n";
+} catch (Throwable $e) {
+    echo "\n######################################################\Deletion failed\n######################################################\n";
+    echo ExceptionUtil::unwrap($e, false);
+    exit(1);
+}

@@ -51,6 +51,7 @@ if ($runComposerUpdate && count($argv) < 2) {
 
 use acdhOeaw\arche\lib\Repo;
 use acdhOeaw\arche\lib\ingest\Indexer;
+use acdhOeaw\arche\lib\exception\ExceptionUtil;
 use zozlak\argparse\ArgumentParser;
 
 require_once "$composerLocation/vendor/autoload.php";
@@ -137,14 +138,7 @@ try {
     echo "\n######################################################\nImport ended\n######################################################\n";
 } catch (Throwable $e) {
     echo "\n######################################################\nImport failed\n######################################################\n";
-    while ($e->getPrevious()) {
-        $e = $e->getPrevious();
-    }
-    echo $e->getMessage();
-    if ($verbose) {
-        echo "\n--------------------n";
-        print_r($e);
-    }
+    echo ExceptionUtil::unwrap($e, $verbose);
     exit(1);
 }
 
