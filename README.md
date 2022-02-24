@@ -95,7 +95,7 @@ When adjusting settings at the top of a file leave `$configLocation` and `$compo
   veryStrongPassword
   ```
 * Use `screen` so you can leave the script running even if the connection to the server is lost or when you turn your computer off.  
-  After logging into arche-ingestion@herkules.acdh.oeaw.ac.at run:
+  After logging into repo-ingestion@hephaistos.arz.oeaw.ac.at run:
   ```bash
   screen -S yourSessionName ~/login.sh
   ```
