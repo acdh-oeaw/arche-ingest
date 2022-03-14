@@ -4,7 +4,7 @@
 // This file imports binaries from a given directory
 // path to the data (e.g. '../data')
 $dataDir            = 'PATH_TO_THE_DATA_DIRECTORY';
-// Prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau/')
+// Prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau')
 // The id is created by replacing $dataDir with $idPrefix in the ingested file's path
 $idPrefix           = 'ID_PREFIX';
 // Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau').
