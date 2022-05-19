@@ -22,6 +22,7 @@
     "bin": [
         "bin/arche-import-metadata",
         "bin/arche-import-binary",
-        "bin/arche-delete-resource"
+        "bin/arche-delete-resource",
+        "bin/arche-delete-triples"
     ]
 }

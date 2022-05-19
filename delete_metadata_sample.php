@@ -3,12 +3,13 @@
 
 // This script removes metadata properties without deleting repository resources
 // config
-$ttlFile = 'delete_metadata_sample.ttl';
+$rdfLocation = 'delete_metadata_sample.ttl';
 
 // advanced config (generally shouldn't need adjustments)
 $configLocation    = '/ARCHE/config.yaml';
 $composerLocation  = '/ARCHE'; // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
 $runComposerUpdate = true;     // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
+$verbose           = true;     // should output be verbose? 'true' is generally better :)
 // NO CHANGES NEEDED BELOW THIS LINE
 
 $composerLocation = file_exists($composerLocation) ? $composerLocation : (getenv('COMPOSER_DIR') ?: __DIR__);
@@ -21,11 +22,29 @@ if ($runComposerUpdate && count($argv) < 2) {
 use EasyRdf\Graph;
 use acdhOeaw\arche\lib\Repo;
 use acdhOeaw\arche\lib\RepoResource;
+use acdhOeaw\arche\lib\exception\ExceptionUtil;
+use zozlak\argparse\ArgumentParser;
+
 require_once "$composerLocation/vendor/autoload.php";
 
+if (count($argv) > 1) {
+    $parser      = new ArgumentParser();
+    $parser->addArgument('--silent', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
+    $parser->addArgument('rdfFile');
+    $parser->addArgument('repoUrl');
+    $parser->addArgument('user');
+    $parser->addArgument('password');
+    $args        = $parser->parseArgs();
+    $verbose     = !$args->silent;
+    $rdfLocation = $args->rdfFile;
+    $auth        = [$args->user, $args->password];
+    $repo        = Repo::factoryFromUrl($args->repoUrl, ['auth' => $auth]);
+} else {
+    $repo = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
+}
+
 $graph = new Graph();
-$graph->parseFile($ttlFile);
-$repo  = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
+$graph->parseFile($rdfLocation);
 
 foreach ($graph->resources() as $r) {
     if (count($r->propertyUris()) > 0) {
@@ -56,9 +75,8 @@ foreach ($graph->resources() as $r) {
 
             $repo->commit();
         } catch (Exception $e) {
-            echo "\t" . $e->getMessage() . "\n";
+            echo ExceptionUtil::unwrap($e, $verbose);
             $repo->rollback();
         }
     }
 }
-
