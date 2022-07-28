@@ -13,7 +13,7 @@
     ],
     "require": {
         "acdh-oeaw/arche-lib-ingest": "^3.1",
-        "acdh-oeaw/arche-lib": "^4.3",
+        "acdh-oeaw/arche-lib": ">=4.3 <6",
         "zozlak/argparse": "^1"
     },
     "require-dev": {
