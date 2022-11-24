@@ -10,10 +10,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: check
       run: |
-        grep foo *php 
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 20 --statusCode $?
-        echo "bar"
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 30 --statusCode $?
+        grep foo *php ; ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 20 --statusCode $?
+        echo "bar" ; ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 30 --statusCode $?
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 40 --message "foo bar"
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 50
 
