@@ -189,3 +189,59 @@ and follow instructions for the "you want to save the settings inside the script
 
 When adjusting settings at the top of a file leave `$configLocation` and `$composerLocation` as they are.
 
+## Using arche-update-redmine in a GitHub workflow
+
+The basic idea is to execute data processing steps in a following way:
+
+* note down the step name so we can read it instead of a failure
+* perform the step
+* call the arche-update-redmine
+
+and have a separate on-failure job step which makes an arche-update-redmine call noting the faillure.
+
+Remarks:
+
+* As a good practice we should include the GitHub job URL in the Redmine issue note.
+  For that we set up a dedicated environment variable.
+* It goes without saying Redmine access credentials are stored as a repository secret.
+* The way you store the main Redmine issue ID doesn't matter as it's not secret.
+  Do it a way you want (here we just hardcode it in the workflow using an environment variable)
+
+```yaml
+name: sample
+
+on:
+  push: ~
+
+jobs:
+  dockerhub:
+    runs-on: ubuntu-latest
+    env:
+      REDMINE_ID: 21085
+    steps:
+    - uses: actions/checkout@v3
+    - name: init
+      run: |
+        composer require acdh-oeaw/arche-ingest
+        echo "RUN_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_ENV
+    - name: virus scan
+      run: |
+        echo 'STEP=Virus Scan' >> $GITHUB_ENV
+        ...perform the virus scan...
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Virus scan' --append "$RUN_URL"
+    - name: repo-filechecker
+      run: |
+        echo 'STEP=Run repo-file-checker' >> $GITHUB_ENV
+        ...run the repo-filechecker...
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Run repo-file-checker' --append "$RUN_URL"
+    - name: check3
+      run: |
+        echo 'STEP=Upload AIP to Curation Instance (Minerva)' >> $GITHUB_ENV
+        ...perform the ingestion...
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Upload AIP to Curation Instance (Minerva)' 
+    - name: on failure
+      if: ${{ failure() }}
+      run: |
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" --statusCode 1 $REDMINE_ID "$STEP"
+
+```
