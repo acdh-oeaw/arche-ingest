@@ -14,7 +14,8 @@
     "require": {
         "acdh-oeaw/arche-lib-ingest": "^3.1",
         "acdh-oeaw/arche-lib": ">=4.3 <6",
-        "zozlak/argparse": "^1"
+        "zozlak/argparse": "^1",
+        "kbsali/redmine-api": "^2.2"
     },
     "require-dev": {
         "phpstan/phpstan": "*"
@@ -23,6 +24,7 @@
         "bin/arche-import-metadata",
         "bin/arche-import-binary",
         "bin/arche-delete-resource",
-        "bin/arche-delete-triples"
+        "bin/arche-delete-triples",
+        "bin/arche-update-redmine"
     ]
 }
