@@ -15,6 +15,7 @@ jobs:
     - name: check1
       run: |
         echo 'STEP="Virus Scan"' >> $GITHUB_ENV
+        echo "$RUN_URL"
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Virus scan' --done 40 --message "foo bar" --append "$RUN_URL"
     - name: check2
       run: |
@@ -27,5 +28,6 @@ jobs:
     - name: check3
       if: ${{ failure() }}
       run: |
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "$STEP" --done 10 --statusCode 1 --append "$RUN_URL"
+        echo "'$STEP'"
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "'$STEP'" --done 10 --statusCode 1 --append "$RUN_URL"
 
