@@ -14,12 +14,12 @@ jobs:
         echo "RUN_URL='$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID'" >> $GITHUB_ENV
     - name: check1
       run: |
-        echo 'STEP="Virus Scan"' >> $GITHUB_ENV
+        echo 'STEP=Virus Scan' >> $GITHUB_ENV
         echo "$RUN_URL"
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Virus scan' --done 40 --message "foo bar" --append "$RUN_URL"
     - name: check2
       run: |
-        echo 'STEP="Run repo-file-checker"' >> $GITHUB_ENV
+        echo 'STEP=Run repo-file-checker' >> $GITHUB_ENV
         grep bar *php
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Run repo-file-checker' --done 50 --append "$RUN_URL"
     - name: check3
@@ -28,6 +28,5 @@ jobs:
     - name: check3
       if: ${{ failure() }}
       run: |
-        echo "'$STEP'"
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "'$STEP'" --done 10 --statusCode 1 --append "$RUN_URL"
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "$STEP" --done 10 --statusCode 1 --append "$RUN_URL"
 
