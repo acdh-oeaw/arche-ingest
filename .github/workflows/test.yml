@@ -11,7 +11,7 @@ jobs:
     - name: composer
       run: |
         composer update --no-dev -o
-        echo "RUN_URL='$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID'" >> $GITHUB_ENV
+        echo "RUN_URL=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_ENV
     - name: check1
       run: |
         echo 'STEP=Virus Scan' >> $GITHUB_ENV
@@ -25,7 +25,7 @@ jobs:
     - name: check3
       run: |
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Virus scan' --done 60
-    - name: check3
+    - name: on failure
       if: ${{ failure() }}
       run: |
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "$STEP" --done 10 --statusCode 1 --append "$RUN_URL"
