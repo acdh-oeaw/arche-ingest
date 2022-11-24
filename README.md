@@ -60,7 +60,7 @@ There are two script variants provided:
 
 Do not store your ARCHE credentials in the workflow configuration file. Use repository secrets instead (see example below).
 
-A fragment of your workflow;s yaml config may look like that:
+A fragment of your workflow's yaml config may look like that:
 
 ```yaml
     - name: ingestion  dependencies
@@ -68,7 +68,8 @@ A fragment of your workflow;s yaml config may look like that:
         composer require acdh-oeaw/arche-ingest
     - name: ingest arche
       run: |
-        vendor/bin/arche-import-metadata myRdfFile.ttl https://arche-dev.acdh-dev.oeaw.ac.at/api ${{secrets.ARCHE_LOGIN}} ${{secrets.ARCHE_PASSWORD}}
+        vendor/bin/arche-import-metadata myRdfFile.ttl https://arche-curation.acdh-dev.oeaw.ac.at/api ${{secrets.ARCHE_LOGIN}} ${{secrets.ARCHE_PASSWORD}}
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 1234 'Upload AIP to Curation Instance (Minerva)'
 ```
 
 #### Running on repo-ingestion@hephaistos

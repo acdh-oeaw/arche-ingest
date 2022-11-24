@@ -103,5 +103,6 @@ if (!empty(getenv('GITHUB_RUN_ID'))) {
 }
 
 echo "Redmine issue $issue updated successfully\n";
+print_r($_ENV);
 exit(0);
 
