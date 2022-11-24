@@ -8,16 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: check1
+    - name: composer
       run: |
         composer update --no-dev -o
+        echo "RUN_URL='$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID'" >> $GITHUB_ENV
     - name: check1
       run: |
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 40 --message "foo bar"
+        echo 'STEP="Virus Scan"' >> $GITHUB_ENV
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Virus scan' --done 40 --message "foo bar" --append "$RUN_URL"
     - name: check2
       run: |
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 50 --statusCode 1
+        echo 'STEP="Run repo-file-checker"' >> $GITHUB_ENV
+        grep bar *php
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Run repo-file-checker' --done 50 --append "$RUN_URL"
     - name: check3
       run: |
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 60 --statusCode 0
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 'Virus scan' --done 60
+    - name: check3
+      if: ${{ failure() }}
+      run: |
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} 21085 "$STEP" --done 10 --statusCode 1 --append "$RUN_URL"
 
