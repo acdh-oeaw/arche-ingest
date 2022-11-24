@@ -8,10 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: check
+    - name: check1
+      continue-on-error: true
       run: |
-        grep foo *php ; ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 20 --statusCode $?
-        echo "bar" ; ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 30 --statusCode $?
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 40 --message "foo bar"
-        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 50
+    - name: check2
+      continue-on-error: true
+      run: |
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 50 --statusCode 1
+    - name: check3
+      continue-on-error: true
+      run: |
+        ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 60 --statusCode 0
 
