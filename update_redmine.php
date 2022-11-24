@@ -99,7 +99,7 @@ if (!empty($args->done)) {
 
 $msg = $args->message ?? $subtasks[$args->subtask][$args->statusCode === 0 ? 0 : 1];
 if (!empty($args->append)) {
-    $msg = rtrim($msg) . "\n\n$url";
+    $msg = rtrim($msg) . "\n\n" . $args->append;
 }
 $issuesApi->addNoteToIssue($issue, $msg);
 

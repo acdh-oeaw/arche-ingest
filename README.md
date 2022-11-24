@@ -18,6 +18,7 @@ There are two script variants provided:
   * `bin/arche-delete-resource` removes a given repository resource (allows recursion, etc.)
   * `bin/arche-delete-triples` removes metadata triples specified in the ttl file (but doesn't remove repository resources)
   * `bin/arche-update-redmine` updates a Redmine issue describing the data curation/ingestion process
+    (see a dedicated section at the bottom of the README)
 * **Template variant** where you adjust execution parameters and/or the way the script works by editign its content.  
   The benefit of this variant is that it allows to treat the adjusted script as a documentation of the ingestion process and/or adjust it to your particular needs.
   * `add_metadata_sample.php` adds metadata triples specified in the ttl file preserving all existing metadata of repository resources
