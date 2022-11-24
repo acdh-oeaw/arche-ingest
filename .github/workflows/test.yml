@@ -9,15 +9,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: check1
-      continue-on-error: true
+      run: |
+        composer update --no-dev -o
+    - name: check1
       run: |
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --done 40 --message "foo bar"
     - name: check2
-      continue-on-error: true
       run: |
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 50 --statusCode 1
     - name: check3
-      continue-on-error: true
       run: |
         ./update_redmine.php --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 21085 'Virus scan' --status 'In Progress' --done 60 --statusCode 0
 
