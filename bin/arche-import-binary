@@ -17,5 +17,5 @@ fi
 if [ "$#" == "0" ] ; then
     php -f "$BDIR/import_binary_sample.php" -- -h
 else
-    php -f "$BDIR/import_binary_sample.php" -- $@
+    php -f "$BDIR/import_binary_sample.php" -- "$@"
 fi
