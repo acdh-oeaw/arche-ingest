@@ -228,12 +228,12 @@ jobs:
       run: |
         echo 'STEP=Virus Scan' >> $GITHUB_ENV
         ...perform the virus scan...
-        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Virus scan' --append "$RUN_URL"
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Virus scan'
     - name: repo-filechecker
       run: |
         echo 'STEP=Run repo-file-checker' >> $GITHUB_ENV
         ...run the repo-filechecker...
-        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Run repo-file-checker' --append "$RUN_URL"
+        vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} --append "$RUN_URL" $REDMINE_ID 'Run repo-file-checker'
     - name: check3
       run: |
         echo 'STEP=Upload AIP to Curation Instance (Minerva)' >> $GITHUB_ENV
