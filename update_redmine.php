@@ -34,7 +34,7 @@ $subtasks = [
     ],
 ];
 
-$parser = new AP('Updates information on ingestion progress in the Redmine.');
+$parser = new AP(null, 'Updates information on ingestion progress in the Redmine.');
 $parser->addArgument('--user', help: "Redmine user.");
 $parser->addArgument('--pswd', help: "Redmine user's password");
 $parser->addArgument('--token', help: "Redmine authorization token. Can be used instead of --user and --pswd.");
@@ -68,8 +68,9 @@ if (!is_array($issuesApi->show($args->mainIssueId))) {
 $issue  = null;
 $issues = $issuesApi->all([
     'parent_id' => $args->mainIssueId,
+    'status_id' => '*',
     'limit'     => 100,
-    ]);
+]);
 foreach ($issues['issues'] ?? [] as $i) {
     if ($i['subject'] == $args->subtask) {
         $issue = $i['id'];
@@ -77,6 +78,7 @@ foreach ($issues['issues'] ?? [] as $i) {
     } else {
         $subissues = $issuesApi->all([
             'parent_id' => $i['id'],
+            'status_id' => '*',
             'subject'   => $args->subtask,
         ]);
         if (is_array($subissues) && count($subissues['issues']) === 1) {
