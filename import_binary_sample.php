@@ -70,6 +70,7 @@ if (count($argv) > 1) {
     $parser->addArgument('--skipDefaultClassAssignment', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--flatStructure', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--maxDepth', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum ingested directories depth (0 - only dataDir, 1 - with direct subdirs, etc.; -1 means no limit). (default %(default)s)', metavar: 'BYTES');
+    $parser->addArgument('--noCertCheck', action: ArgumentParser::ACTION_STORE_TRUE, default: false, help: 'Do not check servers SSL certificate.');
     $parser->addArgument('--silent', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--autocommit', type: ArgumentParser::TYPE_INT, default: 0, help: '(default %(default)s)', metavar: 'N');
     $parser->addArgument('--errMode', choices: $errModes, default: $rc->getConstant($errMode), help: '(default %(default)s)');
@@ -97,7 +98,12 @@ if (count($argv) > 1) {
     $dataDir            = $args->dataDir;
     $idPrefix           = $args->idPrefix;
     $auth               = [$args->user, $args->password];
-    $repo               = Repo::factoryFromUrl($args->repoUrl, ['auth' => $auth]);
+    $guzzleOpts         = [
+        'auth'   => $auth, 
+        'verify' => !$args->noCertCheck
+    ];
+    print_r($guzzleOpts);exit();
+    $repo               = Repo::factoryFromUrl($args->repoUrl, $guzzleOpts);
 } else {
     $repo = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
 }
