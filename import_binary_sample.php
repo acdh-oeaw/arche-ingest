@@ -26,7 +26,7 @@ $filenameFilter     = '';
 $filterType         = 'FILTER_MATCH';
 // Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource)
 // In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
-$assignDefaultClass = true;
+$assignDefaultClass = false;
 
 // advanced config (generally shouldn't need adjustments)
 $versioning        = 'VERSIONING_NONE'; // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
@@ -58,7 +58,7 @@ require_once "$composerLocation/vendor/autoload.php";
 $rc = new ReflectionClass(Indexer::class);
 
 if (count($argv) > 1) {
-    $errModes           = ['fail', 'pass'];
+    $errModes           = ['fail', 'pass', 'continue'];
     $skipModes          = ['none', 'not_exist', 'exist', 'binary_exist'];
     $filterTypes        = ['match', 'skip'];
     $parser             = new ArgumentParser();
@@ -67,7 +67,7 @@ if (count($argv) > 1) {
     $parser->addArgument('--sizeLimit', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum uploaded file size in bytes. -1 means no limit. (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--filenameFilter');
     $parser->addArgument('--filterType', choices: $filterTypes, default: 'match', help: 'Taken into account only when --filenameFilter is provided (default %(default)s)');
-    $parser->addArgument('--skipDefaultClassAssignment', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
+    $parser->addArgument('--assignDefaultClass', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--flatStructure', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--maxDepth', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum ingested directories depth (0 - only dataDir, 1 - with direct subdirs, etc.; -1 means no limit). (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--noCertCheck', action: ArgumentParser::ACTION_STORE_TRUE, default: false, help: 'Do not check servers SSL certificate.');
@@ -87,7 +87,7 @@ if (count($argv) > 1) {
     $sizeLimit          = $args->sizeLimit;
     $filenameFilter     = '`' . $args->filenameFilter . '`';
     $filterType         = 'FILTER_' . mb_strtoupper($args->filterType);
-    $assignDefaultClass = !$args->skipDefaultClassAssignment;
+    $assignDefaultClass = $args->assignDefaultClass;
     $flatStructure      = $args->flatStructure;
     $maxDepth           = $args->maxDepth;
     $verbose            = !$args->silent;
@@ -140,8 +140,21 @@ try {
     $repo->begin();
     $rs = $ind->import($errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
-    echo "count resources: " . count($rs);
+    $ingested = 0;
+    $errors = [];
+    foreach($rs as $i) {
+        if ($i instanceof \Exception) {
+            $errors[] = $i;
+        } else {
+            $ingested++;
+        }
+    }
+    echo "Ingested resources count: $ingested\n";
     echo "\n######################################################\nImport ended\n######################################################\n";
+    foreach ($errors as $i) {
+        echo ExceptionUtil::unwrap($e, $verbose);
+    }
+    exit(count($errors) === 0 ? 0 : 1);
 } catch (Throwable $e) {
     echo "\n######################################################\nImport failed\n######################################################\n";
     echo ExceptionUtil::unwrap($e, $verbose);
