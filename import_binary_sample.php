@@ -30,6 +30,7 @@ $assignDefaultClass = false;
 
 // advanced config (generally shouldn't need adjustments)
 $versioning        = 'VERSIONING_NONE'; // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
+$migratePid        = 'PID_KEEP';        // PID_KEEP, PID_PASS
 $errMode           = 'ERRMODE_PASS';    // ERRMODE_FAIL (fail on first error) or ERRMODE_PASS (continue on error and fail at the end)
 $configLocation    = '/ARCHE/config.yaml';
 $composerLocation  = '/ARCHE';          // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
@@ -60,11 +61,14 @@ $rc = new ReflectionClass(Indexer::class);
 if (count($argv) > 1) {
     $errModes           = ['fail', 'pass', 'continue'];
     $skipModes          = ['none', 'not_exist', 'exist', 'binary_exist'];
+    $versioningModes    = ['none', 'always', 'digest', 'date'];
     $filterTypes        = ['match', 'skip'];
     $parser             = new ArgumentParser();
     $parser->addArgument('--parentId');
     $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: [
         'none'], help: '(default %(default)s)');
+    $parser->addArgument('--versioning', choices: $versioningModes, default: 'none', help: '(default %(default)s)');
+    $parser->addArgument('--migratePid', choices: ['keep', 'pass'], default: 'keep', help: 'In case of new version creation, should the pid be kept with an old resource or passed to the new one(default %(default)s)');
     $parser->addArgument('--sizeLimit', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum uploaded file size in bytes. -1 means no limit. (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--filenameFilter');
     $parser->addArgument('--filterType', choices: $filterTypes, default: 'match', help: 'Taken into account only when --filenameFilter is provided (default %(default)s)');
@@ -85,6 +89,8 @@ if (count($argv) > 1) {
     $args               = $parser->parseArgs();
     $parentResourceId   = $args->parentId;
     $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
+    $versioning         = 'VERSIONING_' . mb_strtoupper($args->versioning);
+    $migratePid         = 'PID_' . mb_strtoupper($args->migratePid);
     $sizeLimit          = $args->sizeLimit;
     $filenameFilter     = '`' . $args->filenameFilter . '`';
     $filterType         = 'FILTER_' . mb_strtoupper($args->filterType);
@@ -112,7 +118,13 @@ $skip       = is_array($skip) ? $skip : [$skip];
 $skip       = array_map(fn($x) => $rc->getConstant($x), $skip);
 $skip       = array_sum($skip);
 $versioning = $rc->getConstant($versioning);
+$migratePid = $rc->getConstant($migratePid);
 $filterType = $rc->getConstant($filterType);
+
+if (in_array($skip, [Indexer::SKIP_EXIST, Indexer::SKIP_BINARY_EXIST]) && $versioning !== Indexer::VERSIONING_NONE) {
+    echo "Conflicting skip and versioning modes selected!\n ";
+    exit(1);
+}
 
 Indexer::$debug = $verbose;
 $ind            = new Indexer($dataDir, $idPrefix, $repo);
@@ -128,7 +140,7 @@ if ($assignDefaultClass) {
     $ind->setCollectionClass('');
 }
 $ind->setSkip($skip);
-$ind->setVersioning($versioning);
+$ind->setVersioning($versioning, $migratePid);
 $ind->setUploadSizeLimit($sizeLimit);
 $ind->setAutoCommit($autocommit);
 $ind->setFlatStructure($flatStructure);
