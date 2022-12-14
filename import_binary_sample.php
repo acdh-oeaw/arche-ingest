@@ -63,7 +63,8 @@ if (count($argv) > 1) {
     $filterTypes        = ['match', 'skip'];
     $parser             = new ArgumentParser();
     $parser->addArgument('--parentId');
-    $parser->addArgument('--skip', choices: $skipModes, default: 'none', help: '(default %(default)s)');
+    $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: [
+        'none'], help: '(default %(default)s)');
     $parser->addArgument('--sizeLimit', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum uploaded file size in bytes. -1 means no limit. (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--filenameFilter');
     $parser->addArgument('--filterType', choices: $filterTypes, default: 'match', help: 'Taken into account only when --filenameFilter is provided (default %(default)s)');
@@ -83,7 +84,7 @@ if (count($argv) > 1) {
     $parser->addArgument('password');
     $args               = $parser->parseArgs();
     $parentResourceId   = $args->parentId;
-    $skip               = 'SKIP_' . mb_strtoupper($args->skip);
+    $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
     $sizeLimit          = $args->sizeLimit;
     $filenameFilter     = '`' . $args->filenameFilter . '`';
     $filterType         = 'FILTER_' . mb_strtoupper($args->filterType);
@@ -99,16 +100,17 @@ if (count($argv) > 1) {
     $idPrefix           = $args->idPrefix;
     $auth               = [$args->user, $args->password];
     $guzzleOpts         = [
-        'auth'   => $auth, 
+        'auth'   => $auth,
         'verify' => !$args->noCertCheck
     ];
-    print_r($guzzleOpts);exit();
     $repo               = Repo::factoryFromUrl($args->repoUrl, $guzzleOpts);
 } else {
     $repo = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
 }
 $errMode    = $rc->getConstant($errMode);
-$skip       = $rc->getConstant($skip);
+$skip       = is_array($skip) ? $skip : [$skip];
+$skip       = array_map(fn($x) => $rc->getConstant($x), $skip);
+$skip       = array_sum($skip);
 $versioning = $rc->getConstant($versioning);
 $filterType = $rc->getConstant($filterType);
 
@@ -138,11 +140,11 @@ if (!empty($filenameFilter)) {
 try {
     echo "\n######################################################\nImporting binaries\n######################################################\n";
     $repo->begin();
-    $rs = $ind->import($errMode, $concurrency, $retriesOnConflict);
+    $rs       = $ind->import($errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
     $ingested = 0;
-    $errors = [];
-    foreach($rs as $i) {
+    $errors   = [];
+    foreach ($rs as $i) {
         if ($i instanceof \Exception) {
             $errors[] = $i;
         } else {
