@@ -166,7 +166,7 @@ try {
     echo "Ingested resources count: $ingested\n";
     echo "\n######################################################\nImport ended\n######################################################\n";
     foreach ($errors as $i) {
-        echo ExceptionUtil::unwrap($e, $verbose);
+        echo ExceptionUtil::unwrap($i, $verbose);
     }
     exit(count($errors) === 0 ? 0 : 1);
 } catch (Throwable $e) {
