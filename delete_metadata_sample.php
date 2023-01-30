@@ -12,7 +12,7 @@ $runComposerUpdate = true;     // should `composer update` be run in $composerLo
 $verbose           = true;     // should output be verbose? 'true' is generally better :)
 // NO CHANGES NEEDED BELOW THIS LINE
 
-$composerLocation = file_exists($composerLocation) ? $composerLocation : (getenv('COMPOSER_DIR') ?: __DIR__);
+$composerLocation = getenv('COMPOSER_DIR') ?: (file_exists($composerLocation) ? $composerLocation : __DIR__);
 if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdating libraries\n######################################################\n";
     exec('cd ' . escapeshellarg($composerLocation) . ' && composer update --no-dev');
