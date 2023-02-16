@@ -78,7 +78,7 @@ if (count($argv) > 1) {
     $parser->addArgument('--noCertCheck', action: ArgumentParser::ACTION_STORE_TRUE, default: false, help: 'Do not check servers SSL certificate.');
     $parser->addArgument('--silent', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--autocommit', type: ArgumentParser::TYPE_INT, default: 0, help: '(default %(default)s)', metavar: 'N');
-    $parser->addArgument('--errMode', choices: $errModes, default: $rc->getConstant($errMode), help: '(default %(default)s)');
+    $parser->addArgument('--errMode', choices: $errModes, default: 'fail', help: '(default %(default)s)');
     $parser->addArgument('--concurrency', type: ArgumentParser::TYPE_INT, default: $concurrency, help: '(default %(default)s)', metavar: 'N');
     $parser->addArgument('--retriesOnConflict', type: ArgumentParser::TYPE_INT, default: $retriesOnConflict, help: '(default %(default)s)', metavar: 'N');
     $parser->addArgument('dataDir');
