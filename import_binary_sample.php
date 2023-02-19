@@ -152,21 +152,13 @@ if (!empty($filenameFilter)) {
 try {
     echo "\n######################################################\nImporting binaries\n######################################################\n";
     $repo->begin();
-    $rs       = $ind->import($errMode, $concurrency, $retriesOnConflict);
+    $resources = $ind->import($errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
-    $ingested = 0;
-    $errors   = [];
-    foreach ($rs as $i) {
-        if ($i instanceof \Exception) {
-            $errors[] = $i;
-        } else {
-            $ingested++;
-        }
-    }
-    echo "Ingested resources count: $ingested\n";
+    $errors    = array_filter($resources, fn($x) => $x instanceof \Exception);
+    echo "Ingested resources count: " . (count($resources) - count($errors)) . " errors count: " . count($errors) . "\n";
     echo "\n######################################################\nImport ended\n######################################################\n";
     foreach ($errors as $i) {
-        echo ExceptionUtil::unwrap($i, $verbose);
+        echo ExceptionUtil::unwrap($i, $verbose) . "\n----------\n";
     }
     exit(count($errors) === 0 ? 0 : 1);
 } catch (Throwable $e) {
