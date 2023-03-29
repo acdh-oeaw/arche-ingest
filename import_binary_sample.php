@@ -7,40 +7,33 @@ $dataDir            = 'PATH_TO_THE_DATA_DIRECTORY';
 // Prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau')
 // The id is created by replacing $dataDir with $idPrefix in the ingested file's path
 $idPrefix           = 'ID_PREFIX';
-// Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau').
-// ParentResourceId may be empty. In such a case files in the indexed directory root won't be attached to any parent by the Indexer (but they can still have parents defined e.g. trough a metadata import).
-$parentResourceId   = 'PARENT_RESOURCE_ID';
-// SKIP_NOT_EXIST skip files which don't have corresponding repository resource. Use it if you imported metadata first and you want to make sure only files matching already imported metadata resources will be ingested. It's a secure option preventing you from disasters in case of making a typo in the $containerToUriPrefix config setting.
-// SKIP_NONE import all files
-// SKIP_BINARY_EXIST skip files which have corresponding repository resource with not empty binary payload. Use it if your upload failed in the middle but you used autocommit and some resources were ingested. In such a case the ingestion will skip resources which were already ingested and ingest only the ones which are still missing (saving your time and increases chances additional resources will be ingested).
-// SKIP_EXIST skip files which have corresponding repository resource. Like SKIP_BINARY_EXIST but it's enough if a resource exists (it doesn't have to have a binary payload).
-$skip               = 'SKIP_NOT_EXIST';
-// uploaded file size limit (in bytes, -1 means any size)
-// files bigger then this limit will be created with full metadata but their binary content won't be uploaded
-$sizeLimit          = -1;
 // Filename filter - depending on the $filterType either only files with filenames matching or not matching the filter will be ingested
-// Use it 
 // Filter value should be a valid first argument of the PHP's preg_match(), e.g. '/(Aachen_Prot_1.xml|Aachen_Dok_50.xml)$/'
 $filenameFilter     = '';
 // FILTER_MATCH or FILTER_SKIP - should the $filenamefilter match resources to be included or skipped during the ingestion
 $filterType         = 'FILTER_MATCH';
-// Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource)
-// In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
-$assignDefaultClass = false;
 
 // advanced config (generally shouldn't need adjustments)
-$versioning        = 'VERSIONING_NONE'; // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
-$migratePid        = 'PID_KEEP';        // PID_KEEP, PID_PASS
-$errMode           = 'ERRMODE_PASS';    // ERRMODE_FAIL (fail on first error) or ERRMODE_PASS (continue on error and fail at the end)
-$configLocation    = '/ARCHE/config.yaml';
-$composerLocation  = '/ARCHE';          // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
-$autocommit        = 0;                 // don't touch until you encounter problems
-$flatStructure     = false;             // don't create collection resources for directories
-$maxDepth          = -1;                // maximum ingested directories depth (0 - only $dataDir, 1 - with direct subdirs, etc.; -1 - without limit)
-$verbose           = true;              // should output be verbose? 'true' is generally better :)
-$runComposerUpdate = true;              // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
-$concurrency       = 3;                 // number of parallel requests (Indexer->import() 2nd parameter)
-$retriesOnConflict = 3;                 // number of parallel requests (Indexer->import() 3rd parameter)
+$sizeLimit          = -1;                 // Uploaded file size limit (in bytes, -1 means any size). Files bigger then this limit will be created with full metadata but their binary content won't be uploaded
+// SKIP_NOT_EXIST skip files which don't have corresponding repository resource. Use it if you imported metadata first and you want to make sure only files matching already imported metadata resources will be ingested. It's a secure option preventing you from disasters in case of making a typo in the $containerToUriPrefix config setting.
+// SKIP_NONE import all files
+// SKIP_BINARY_EXIST skip files which have corresponding repository resource with not empty binary payload. Use it if your upload failed in the middle but you used autocommit and some resources were ingested. In such a case the ingestion will skip resources which were already ingested and ingest only the ones which are still missing (saving your time and increases chances additional resources will be ingested).
+// SKIP_EXIST skip files which have corresponding repository resource. Like SKIP_BINARY_EXIST but it's enough if a resource exists (it doesn't have to have a binary payload).
+$skip               = ['SKIP_NOT_EXIST', 'SKIP_BINARY_EXIST'];
+$assignDefaultClass = false;              // Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource). In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
+$parentResourceId   = '';                 // Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau'). ParentResourceId may be empty. In such a case files in the indexed directory root won't be attached to any parent by the Indexer (but they can still have parents defined e.g. trough a metadata import).
+$versioning         = 'VERSIONING_NONE';  // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
+$migratePid         = 'PID_KEEP';         // PID_KEEP, PID_PASS
+$errMode            = 'ERRMODE_CONTINUE'; // ERRMODE_FAIL (fail on first error), ERRMODE_PASS (continue on error and fail at the end) or ERRMODE_CONTINUE (continue no matter errors)
+$configLocation     = '/ARCHE/config.yaml';
+$composerLocation   = '/ARCHE';           // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
+$autocommit         = 1000;               // how often commit the changes
+$flatStructure      = false;              // don't create collection resources for directories
+$maxDepth           = -1;                 // maximum ingested directories depth (0 - only $dataDir, 1 - with direct subdirs, etc.; -1 - without limit)
+$verbose            = true;               // should output be verbose? 'true' is generally better :)
+$runComposerUpdate  = true;               // should `composer update` be run in $composerLocation dir (makes ingestion initialization longer but releases us from remembering about running `composer update` by hand)
+$concurrency        = 3;                  // number of parallel requests (Indexer->import() 2nd parameter)
+$retriesOnConflict  = 3;                  // number of parallel requests (Indexer->import() 3rd parameter)
 // NO CHANGES NEEDED BELOW THIS LINE
 
 $composerLocation = getenv('COMPOSER_DIR') ?: (file_exists($composerLocation) ? $composerLocation : __DIR__);
