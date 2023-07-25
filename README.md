@@ -34,7 +34,7 @@ There are two script variants provided:
 
 You need [PHP](https://www.php.net/) and [Composer](https://getcomposer.org/).
 
-You can also use the `acdhch/arche-filechecker` [Docker](https://www.docker.com/) image
+You can also use the `acdhch/arche-ingest` [Docker](https://www.docker.com/) image
 (the `{pathToDirectoryWithFilesToIngest}` will be available at the `/data` location inside the Docker container):
 
 ```bash
@@ -42,9 +42,8 @@ docker run \
   --rm \
   -ti \
   --name arche-ingest \
-  --entrypoint bash \
   -v {pathToDirectoryWithFilesToIngest}:/data \
-  acdhch/arche-filechecker
+  acdhch/arche-ingest
 ```
 
 ### Console script variant
