@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: docker build
-      run: docker build -t acdhch/arche-ingest --label "buildUrl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" .
+      run: docker build -t acdhch/arche-ingest --label "buildUrl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" docker
     - uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
