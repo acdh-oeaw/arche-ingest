@@ -867,7 +867,7 @@
 	
 <https://id.acdh.oeaw.ac.at/wollmilchsau/grossoelschraege.pdf> a acdh:Resource;
 	acdh:hasTitle "großölschräge.pdf"@de;
-	acdh:hasDescription "A file that contains a list of the following special characters. ~ Tilde, ` Backquote, ! Exclamation mark, @ Ampersat, # Octothorpe/hash, $ Dollar sign, % Percent, ^ Caret, & Ampersand, * Asterisk, ( Open parenthesis, ) Close Parenthesis, - Hyphen, _ Underscore, + Plus, = Equal, | Pipe, \ Backslash, / Forward slash, : Colon, ; Semicolon, ' Apostrophe, < Less than, > Greater than, , Comma, . Dot, ? Question mark"@en;
+	acdh:hasDescription "A file that contains a list of the following special characters. ~ Tilde, ` Backquote, ! Exclamation mark, @ Ampersat, # Octothorpe/hash, $ Dollar sign, % Percent, ^ Caret, & Ampersand, * Asterisk, ( Open parenthesis, ) Close Parenthesis, - Hyphen, _ Underscore, + Plus, = Equal, | Pipe, \\ Backslash, / Forward slash, : Colon, ; Semicolon, ' Apostrophe, < Less than, > Greater than, , Comma, . Dot, ? Question mark"@en;
 	acdh:hasCategory <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
 	acdh:hasCreatedStartDate "2022-05-20";
 	acdh:hasLicense <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0>;
