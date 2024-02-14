@@ -12,8 +12,7 @@
         }
     ],
     "require": {
-        "acdh-oeaw/arche-lib-ingest": "^3.5",
-        "acdh-oeaw/arche-lib": ">=4.3 <6",
+        "acdh-oeaw/arche-lib-ingest": "^4",
         "zozlak/argparse": "^1",
         "kbsali/redmine-api": "^2.2"
     },

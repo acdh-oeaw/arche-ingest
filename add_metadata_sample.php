@@ -18,35 +18,34 @@ if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use EasyRdf\Graph;
+use quickRdf\Dataset;
+use quickRdf\DataFactory;
+use quickRdfIo\Util as RdfIoUtil;
+use termTemplates\QuadTemplate;
 use acdhOeaw\arche\lib\Repo;
 use acdhOeaw\arche\lib\RepoResource;
+
 require_once "$composerLocation/vendor/autoload.php";
 
-$graph = new Graph();
-$graph->parseFile($ttlFile);
+$graph = new Dataset();
+$graph->add(RdfIoUtil::parse($ttlFile, new DataFactory()));
 $repo  = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
 
-foreach ($graph->resources() as $r) {
-    if (count($r->propertyUris()) > 0) {
-        echo "Adding metadata to " . $r->getUri() . "\n";
-        $repo->begin();
-        try {
-            $res  = $repo->getResourceById($r->getUri());
-            $meta = $res->getMetadata();
-            foreach ($r->propertyUris() as $p) {
-                foreach ($r->all($p) as $v) {
-                    $meta->add($p, $v);
-                }
-            }
-            $res->setMetadata($meta);
-            $res->updateMetadata(RepoResource::UPDATE_OVERWRITE);
+foreach ($graph->listSubjects() as $r) {
+    echo "Adding metadata to $r\n";
+    $repo->begin();
+    try {
+        $res     = $repo->getResourceById((string) $r);
+        $resTerm = $res->getUri();
+        $meta    = $res->getGraph();
+        $meta->add($graph->map(fn($x) => $x->withSubject($resTerm), new QuadTemplate($r)));
+        $res->setGraph($meta);
+        $res->updateMetadata(RepoResource::UPDATE_OVERWRITE);
 
-            $repo->commit();
-        } catch (Exception $e) {
-            echo "\t" . $e->getMessage() . "\n";
-            $repo->rollback();
-        }
+        $repo->commit();
+    } catch (Exception $e) {
+        echo "\t" . $e->getMessage() . "\n";
+        $repo->rollback();
     }
 }
 

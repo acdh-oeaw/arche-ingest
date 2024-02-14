@@ -19,7 +19,11 @@ if ($runComposerUpdate && count($argv) < 2) {
     echo "\n######################################################\nUpdate ended\n######################################################\n\n";
 }
 
-use EasyRdf\Graph;
+use rdfInterface\LiteralInterface;
+use quickRdf\Dataset;
+use quickRdf\DataFactory;
+use quickRdfIo\Util as RdfIoUtil;
+use termTemplates\QuadTemplate as QT;
 use acdhOeaw\arche\lib\Repo;
 use acdhOeaw\arche\lib\RepoResource;
 use acdhOeaw\arche\lib\exception\ExceptionUtil;
@@ -43,40 +47,39 @@ if (count($argv) > 1) {
     $repo = Repo::factoryInteractive(empty($configLocation) ? null : $configLocation);
 }
 
-$graph = new Graph();
-$graph->parseFile($rdfLocation);
+$graph = new Dataset();
+$graph->add(RdfIoUtil::parse($rdfLocation, new DataFactory()));
 
-foreach ($graph->resources() as $r) {
-    if (count($r->propertyUris()) > 0) {
-        echo "Removing metadata from " . $r->getUri() . "\n";
-        $repo->begin();
-        try {
-            $res  = $repo->getResourceById($r->getUri());
-            $meta = $res->getMetadata();
-            foreach ($r->propertyUris() as $p) {
-                foreach ($r->all($p) as $v) {
-                    $dtLang = '';
-                    if ($v instanceof \EasyRdf\Literal) {
-                        $dtLang = !empty($v->getLang()) ? '@' . $v->getLang() : '';
-                        $dtLang .= !empty($v->getDatatype()) ? '^^' . $v->getDatatype() : '';
-                        if (empty($dtLang)) {
-                            $v = new \EasyRdf\Literal($v->getValue(), null, 'xsd:string');
-                        }
-                    } elseif ($p !== $repo->getSchema()->id) {
-                        $dr = $repo->getResourceById($v->getUri());
-                        $v  = $meta->getGraph()->resource($dr->getUri());
-                    }
-                    echo "\tremoving $p " . (string) $v . $dtLang . "\n";
-                    $meta->delete($p, $v);
-                }
+$idProp = $repo->getSchema()->id;
+foreach ($graph->listSubjects() as $r) {
+    echo "Removing metadata from $r\n";
+    $repo->begin();
+    try {
+        $res  = $repo->getResourceById((string) $r);
+        $meta = $res->getMetadata();
+        echo $meta . "-----\n";
+        foreach ($graph->getIterator(new QT($r)) as $triple) {
+            $p      = $triple->getPredicate();
+            $v      = $triple->getObject();
+            $dtLang = '';
+            if ($v instanceof LiteralInterface) {
+                $dtLang = empty($v->getLang()) ? '^^' . $v->getDatatype() : '@' . $v->getLang();
+            } elseif (!$idProp->equals($p)) {
+                $dr     = $repo->getResourceById((string) $v);
+                $v      = DataFactory::namedNode($dr->getUri());
+                $triple = $triple->withObject($v);
             }
-            $res->setMetadata($meta);
-            $res->updateMetadata(RepoResource::UPDATE_OVERWRITE);
-
-            $repo->commit();
-        } catch (Exception $e) {
-            echo ExceptionUtil::unwrap($e, $verbose);
-            $repo->rollback();
+            $triple = $triple->withSubject($res->getUri());
+            echo "\tremoving $p " . (string) $v . $dtLang . "\n";
+            unset($meta[$triple]);
         }
+        echo $meta . "-----\n";
+        $res->setMetadata($meta);
+        $res->updateMetadata(RepoResource::UPDATE_OVERWRITE);
+
+        $repo->commit();
+    } catch (Exception $e) {
+        echo ExceptionUtil::unwrap($e, $verbose);
+        $repo->rollback();
     }
 }
