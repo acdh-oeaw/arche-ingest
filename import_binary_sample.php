@@ -148,7 +148,7 @@ try {
     $resources = $ind->import($errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
     $errors    = array_filter($resources, fn($x) => $x instanceof \Exception);
-    echo "Ingested resources count: " . (count($resources) - count($errors)) . " errors count: " . count($errors) . "\n";
+    echo "Ingested resources count: " . (count($resources) - count($errors)) . (count($errors) > 0 ? " errors count: " . count($errors) : " impressive job pal!") . "\n";
     echo "\n######################################################\nImport ended\n######################################################\n";
     foreach ($errors as $i) {
         echo ExceptionUtil::unwrap($i, $verbose) . "\n----------\n";
