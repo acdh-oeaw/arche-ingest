@@ -89,12 +89,15 @@ A fragment of your workflow's yaml config may look like that:
         vendor/bin/arche-update-redmine --token ${{ secrets.REDMINE_TOKEN }} https://redmine.acdh.oeaw.ac.at 1234 'Upload AIP to Curation Instance (Minerva)'
 ```
 
-#### Running on repo-ingestion@hephaistos
+#### Running on ACDH Cluster
 
-* Log into `repo-ingestion@hephaistos`
-* Run `screen -S mySessionName ./login.sh`
+* Open the arche-ingestion workload console by:
+  * Opening [this link](https://rancher.acdh-dev.oeaw.ac.at/dashboard/c/c-m-6hwgqq2g/explorer/apps.deployment/arche-ingestion/arche-ingestion)
+    (if you are redirected to the login page, open the link once again after you log in)
+  * Clicking on the bluish button with three vertical dots in the top-right corner of the screen and and choosing `> Execute Shell`
+* Run `screen -S mySessionName`
 * Go to your ingestion directory
-* Run scripts using `/ARCHE/vendor/bin/{script}` (instead of `vendor/bin/{script}`), e.g.
+* Run scripts using `/ARCHE/vendor/bin/{script}`, e.g.
   ```bash
   /ARCHE/vendor/bin/arche-import-metadata --concurrency 4 myRdf.ttl https://arche.acdh.oeaw.ac.at/api myLogin myPassword
   ```
