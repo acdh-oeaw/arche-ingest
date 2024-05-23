@@ -91,10 +91,10 @@ A fragment of your workflow's yaml config may look like that:
 
 #### Running on ACDH Cluster
 
-* Open the arche-ingestion workload console by:
-  * Opening [this link](https://rancher.acdh-dev.oeaw.ac.at/dashboard/c/c-m-6hwgqq2g/explorer/apps.deployment/arche-ingestion/arche-ingestion)
-    (if you are redirected to the login page, open the link once again after you log in)
-  * Clicking on the bluish button with three vertical dots in the top-right corner of the screen and and choosing `> Execute Shell`
+First, get the arche-ingestion workload console as described [here](https://github.com/acdh-oeaw/arche-ingest/blob/master/docs/acdh-cluster.md)
+    
+Then:
+
 * Run `screen -S mySessionName`
 * Go to your ingestion directory
 * Run scripts using `/ARCHE/vendor/bin/{script}`, e.g.
@@ -130,26 +130,6 @@ A fragment of your workflow's yaml config may look like that:
     php -f import_metadata_sample.php < inputData 2>&1 | tee logFile
     ```
     (see the section below for hints on the input file format)
-
-#### Running on repo-ingestion@hephaistos
-
-* Make a copy and adjust content of the ingestion script.
-  (from your PC perspective scripts can be found in the `ARCHE/script_templates` directory on the `acdh_resources` network drive).
-* Log into `repo-ingestion@hephaistos`.
-* Run
-  ```bash
-  screen -S mySessionName ./login.sh
-  ```
-* Consider preparing an input file - see the "Long runs" section below.
-* Go to the directory with the script and run it, e.g.
-  ```
-  php -f import_metadata_sample.php 2>&1 | tee logFile
-  ```
-* Leave the `screen` session by hitting `CTRL+a` followed by `d`.
-* To go back to the shell where you script is running run
-  ```bash
-  screen -r mySessionName
-  ```
 
 ### Long runs
 
@@ -199,15 +179,6 @@ Create a subtask of the Redmine issue [#17641](https://redmine.acdh.oeaw.ac.at/i
 * Assign Mateusz and Norbert as watchers.
 
 
-### Runinng under repo-ingestion@hephaistos.arz.oeaw.ac.at
-
-Skip the instructions above.
-
-Copy a current template from this directory into your collection import scripts directory
-and follow instructions for the "you want to save the settings inside the script" variant.
-
-When adjusting settings at the top of a file leave `$configLocation` and `$composerLocation` as they are.
-
 ## Using arche-update-redmine in a GitHub workflow
 
 The basic idea is to execute data processing steps in a following way:
@@ -238,7 +209,7 @@ jobs:
     env:
       REDMINE_ID: 21085
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: init
       run: |
         composer require acdh-oeaw/arche-ingest
