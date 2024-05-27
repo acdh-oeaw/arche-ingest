@@ -10,7 +10,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     ln -s /usr/local/bin/php /usr/bin/php &&\
     usermod -s /bin/bash root
 COPY verapdfInstallCfg.xml /tmp/verapdfInstallCfg.xml
-RUN curl https://software.verapdf.org/releases/verapdf-pdfbox-installer.zip > /tmp/verapdf.zip &&\
+RUN curl https://software.verapdf.org/releases/verapdf-installer.zip > /tmp/verapdf.zip &&\
     unzip /tmp/verapdf.zip -d /tmp/verapdf &&\
     /tmp/verapdf/*/verapdf-install /tmp/verapdfInstallCfg.xml &&\
     rm -fR /tmp/verapdf* &&\
