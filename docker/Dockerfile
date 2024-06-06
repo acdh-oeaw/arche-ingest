@@ -14,5 +14,6 @@ RUN composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
     composer require --no-update acdh-oeaw/arche-metadata-crawler &&\
     composer update -o --no-dev &&\
-    chmod 777 vendor/acdh-oeaw/repo-file-checker/aux
+    chmod 777 vendor/acdh-oeaw/repo-file-checker/aux &&\
+    /vendor/acdh-oeaw/repo-file-checker/aux/install_deps.sh
 ENTRYPOINT /bin/bash
