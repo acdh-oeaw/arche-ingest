@@ -6,7 +6,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     apt update &&\
     apt install -y clamav clamdscan clamav-daemon gdal-bin screen default-jre-headless git vim &&\
     sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
-    install-php-extensions @composer ctype dom fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml &&\
+    install-php-extensions @composer ctype dom exif fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml &&\
     ln -s /usr/local/bin/php /usr/bin/php &&\
     usermod -s /bin/bash root
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin
