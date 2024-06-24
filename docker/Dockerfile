@@ -10,7 +10,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     ln -s /usr/local/bin/php /usr/bin/php &&\
     usermod -s /bin/bash root &&\
     echo 'shell "/bin/bash"' >> /root/.screenrc
-ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin
+ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin LC_ALL=C.utf8 LANG=C.utf8
 RUN composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
     composer require --no-update acdh-oeaw/arche-metadata-crawler &&\
