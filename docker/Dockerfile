@@ -8,7 +8,8 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
     install-php-extensions @composer ctype dom exif fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml &&\
     ln -s /usr/local/bin/php /usr/bin/php &&\
-    usermod -s /bin/bash root
+    usermod -s /bin/bash root &&\
+    echo 'shell "/bin/bash"' >> /root/.screenrc
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin
 RUN composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
