@@ -97,9 +97,9 @@ Then:
 
 * Run `screen -S mySessionName`
 * Go to your ingestion directory
-* Run scripts using `/ARCHE/vendor/bin/{script}`, e.g.
+* Run scripts using `{scriptName}`, e.g.
   ```bash
-  /ARCHE/vendor/bin/arche-import-metadata --concurrency 4 myRdf.ttl https://arche.acdh.oeaw.ac.at/api myLogin myPassword
+  arche-import-metadata myRdf.ttl https://arche.acdh.oeaw.ac.at/api myLogin myPassword
   ```
 * If the script will take long to run, you may safely quit the console with `CTRL+D` followed by `exit`.
   * To get back to the script log again into `repo-ingestion@hephaistos` and run
