@@ -13,7 +13,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin LC_ALL=C.utf8 LANG=C.utf8
 RUN composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
-    composer require --no-update acdh-oeaw/arche-metadata-crawler &&\
+    composer require --no-update "acdh-oeaw/arche-metadata-crawler <1" &&\
     composer update -o --no-dev &&\
     chmod 777 vendor/acdh-oeaw/repo-file-checker/aux &&\
     /vendor/acdh-oeaw/repo-file-checker/aux/install_deps.sh
