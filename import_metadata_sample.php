@@ -65,7 +65,8 @@ $graph->setAutoCommit($autocommit);
 try {
     echo "\n######################################################\nImporting structure\n######################################################\n";
     $graph->preprocess();
-    $repo->begin();
+    $txId      = $repo->begin();
+    echo "##### transaction id: $txId #####\n";
     $resources = $graph->import($idNamespace, MetadataCollection::SKIP, $errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
     $errors    = array_filter($resources, fn($x) => $x instanceof \Exception);

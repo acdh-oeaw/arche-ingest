@@ -144,7 +144,8 @@ if (!empty($filenameFilter)) {
 
 try {
     echo "\n######################################################\nImporting binaries\n######################################################\n";
-    $repo->begin();
+    $txId      = $repo->begin();
+    echo "##### transaction id: $txId #####\n";
     $resources = $ind->import($errMode, $concurrency, $retriesOnConflict);
     $repo->commit();
     $errors    = array_filter($resources, fn($x) => $x instanceof \Exception);
