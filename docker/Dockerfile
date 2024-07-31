@@ -4,7 +4,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" &&\
     sed -i -e 's/^memory_limit.*/memory_limit = -1/g' $PHP_INI_DIR/php.ini &&\
     apt update &&\
-    apt install -y clamav clamdscan clamav-daemon gdal-bin screen default-jre-headless git vim &&\
+    apt install -y clamav clamdscan clamav-daemon gdal-bin screen default-jre-headless git vim exiftool &&\
     sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
     install-php-extensions @composer ctype dom exif fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml &&\
     ln -s /usr/local/bin/php /usr/bin/php &&\
