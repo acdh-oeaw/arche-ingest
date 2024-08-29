@@ -101,7 +101,7 @@ Then:
   ```bash
   arche-import-metadata myRdf.ttl https://arche.acdh.oeaw.ac.at/api myLogin myPassword
   ```
-* If the script will take long to run, you may safely quit the console with `CTRL+D` followed by `exit`.
+* If the script will take long to run, you may safely quit the console with `CTRL+a` + `d` followed by `exit`.
   * To get back to the script log again into `repo-ingestion@hephaistos` and run
     ```bash
     screen -r mySessionName
