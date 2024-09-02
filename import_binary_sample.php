@@ -67,7 +67,7 @@ if (count($argv) > 1) {
     $parser->addArgument('--filterType', choices: $filterTypes, default: 'match', help: 'Taken into account only when --filenameFilter is provided (default %(default)s)');
     $parser->addArgument('--assignDefaultClass', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--flatStructure', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
-    $parser->addArgument('--maxDepth', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum ingested directories depth (0 - only dataDir, 1 - with direct subdirs, etc.; -1 means no limit). (default %(default)s)', metavar: 'BYTES');
+    $parser->addArgument('--maxDepth', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum ingested directories depth (0 - only dataDir, 1 - with direct subdirs, etc.; -1 means no limit). (default %(default)s)', metavar: 'N');
     $parser->addArgument('--noCertCheck', action: ArgumentParser::ACTION_STORE_TRUE, default: false, help: 'Do not check servers SSL certificate.');
     $parser->addArgument('--silent', action: ArgumentParser::ACTION_STORE_TRUE, default: false);
     $parser->addArgument('--autocommit', type: ArgumentParser::TYPE_INT, default: 0, help: '(default %(default)s)', metavar: 'N');

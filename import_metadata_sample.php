@@ -68,6 +68,7 @@ try {
     $txId      = $repo->begin();
     echo "##### transaction id: $txId #####\n";
     $resources = $graph->import($idNamespace, MetadataCollection::SKIP, $errMode, $concurrency, $retriesOnConflict);
+    echo "##### commiting transaction $txId #####\n";
     $repo->commit();
     $errors    = array_filter($resources, fn($x) => $x instanceof \Exception);
     echo "Ingested resources count: " . (count($resources) - count($errors)) . (count($errors) > 0 ? " errors count: " . count($errors) : " impressive job pal!") . "\n";

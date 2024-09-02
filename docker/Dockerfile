@@ -1,4 +1,4 @@
-FROM php:8.2-cli
+FROM php:8.3-cli
 RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions > /usr/local/bin/install-php-extensions &&\
     chmod +x /usr/local/bin/install-php-extensions &&\
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" &&\
