@@ -13,8 +13,7 @@
     ],
     "require": {
         "acdh-oeaw/arche-lib-ingest": "^4",
-        "zozlak/argparse": "^1",
-        "kbsali/redmine-api": "^2.2"
+        "zozlak/argparse": "^1"
     },
     "require-dev": {
         "phpstan/phpstan": "*"
