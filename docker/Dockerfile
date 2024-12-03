@@ -9,7 +9,7 @@ RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/l
     install-php-extensions @composer ctype dom exif fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml xdebug &&\
     ln -s /usr/local/bin/php /usr/bin/php &&\
     usermod -s /bin/bash root &&\
-    echo 'shell "/bin/bash"' >> /root/.screenrc
+    echo 'shell "/bin/bash"' >> /root/.screenrc &&\
     echo -e "syntax on\nfiletype plugin indent on\nset tabstop=4\nset shiftwidth=4\nset expandtab" > /root/.vimrc
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin LC_ALL=C.utf8 LANG=C.utf8
