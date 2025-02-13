@@ -22,7 +22,7 @@
     },
     "require-dev": {
         "phpstan/phpstan": "*",
-        "phpunit/phpunit": "^12.0"
+        "phpunit/phpunit": "*"
     },
     "bin": [
         "bin/arche-import-metadata",
