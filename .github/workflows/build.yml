@@ -1,81 +1,22 @@
-name: phpunit
+name: build
 
-on: push
+on:
+  workflow_dispatch: ~
+  push:
+    paths:
+    - docker/**
 
 jobs:
-  phpunit:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [8.1, 8.2, 8.3, 8.4]
-    steps:
-    - uses: actions/checkout@v4
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: gd,json,mbstring,pcre,xmlreader,yaml
-        coverage: xdebug
-      env:
-        fail-fast: true
-    - name: clone repo config
-      run: |
-        git clone --depth 1 --branch arche https://github.com/acdh-oeaw/arche-docker-config.git config
-        chmod -x config/run.d/*sh
-        chmod +x config/run.d/*xdebug.sh config/run.d/*postgresql.sh config/run.d/*config-yaml.sh
-        cp tests/config.yaml config/yaml/local.yaml
-        cp .github/workflows/30-fixVocabularies.sh config/initScripts/
-    - name: run repo docker
-      run: |
-        mkdir log
-        docker run --name arche -p 80:80 -v `pwd`/log:/home/www-data/log -v `pwd`/config:/home/www-data/config -e USER_UID=`id -u` -e USER_GID=`id -g` -d acdhch/arche
-    - name: composer update
-      run: |
-        composer update
-    - name: phpstan
-      run: |
-        vendor/bin/phpstan analyze -l 6 src
-    - name: fetch bigger data
-      run: |
-        curl https://zozlak.org/schnitzler-data.tgz > tests/data/schnitzler-data.tgz
-        cd tests/data
-        tar -xzf schnitzler-data.tgz
-        rm schnitzler-data.tgz
-        cd ../..
-    - name: wait
-      run: |
-        while [ "`grep '# INIT SCRIPTS ENDED' log/initScripts.log | wc -l`" != "1" ]; do
-          tail log/initScripts.log || true
-          echo "Waiting until repository is ready..."
-          echo "-----"
-          sleep 10
-        done
-        cat log/initScripts.log
-    #- uses: mxschmitt/action-tmate@v3
-    - name: test
-      run: |
-        mkdir -p build/logs
-        XDEBUG_MODE=coverage ./vendor/bin/phpunit --display-deprecations --display-phpunit-deprecations --display-notices --display-warnings
-    - name: coveralls
-      run: |
-        export COVERALLS_RUN_LOCALLY=1
-        export COVERALLS_REPO_TOKEN=${{ secrets.coverallsToken }}
-        rm -fR composer.json composer.lock vendor
-        composer require php-coveralls/php-coveralls
-        php vendor/bin/php-coveralls -v
-  phpstan:
+  dockerhub:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: shivammathur/setup-php@v2
+    - name: docker build
+      run: docker build -t acdhch/arche-ingest --label "buildUrl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" docker
+    - uses: docker/login-action@v2
       with:
-        php-version: 8.4
-    - uses: actions/cache@v4
-      with:
-        path: vendor
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
-    - name: composer
-      run: composer update
-    - name: phpstan
-      run: vendor/bin/phpstan analyse -l 8 src tests || true
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: docker push
+      run: docker push acdhch/arche-ingest
 
