@@ -80,7 +80,7 @@ if (count($argv) > 1) {
     $parser->addArgument('repoUrl');
     $parser->addArgument('user');
     $parser->addArgument('password');
-    $args               = $parser->parseArgs($argv);
+    $args               = $parser->parseArgs(array_slice($argv, 1));
     $parentResourceId   = $args->parentId;
     $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
     $versioning         = 'VERSIONING_' . mb_strtoupper($args->versioning);

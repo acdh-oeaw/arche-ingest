@@ -79,14 +79,16 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
         //TODO: setup
         //- turn of named entity checks
 
-        $argv = [__DIR__ . '/data/meta.ttl', 'http://127.0.0.1/api/', 'admin', 'admin'];
+        $argv = ['', __DIR__ . '/data/meta.ttl', 'http://127.0.0.1/api/', 'admin',
+            'admin'];
         require __DIR__ . '/../import_metadata_sample.php';
 
-        $argv = ['--versioning', 'digest', __DIR__ . '/data/v1', self::ACDHI,
+        $argv = ['', '--versioning', 'digest', __DIR__ . '/data/v1', self::ACDHI,
             self::$repo->getBaseUrl(), 'admin', 'admin'];
         require __DIR__ . '/../import_binary_sample.php';
 
-        $argv = ['--versioning', 'digest', __DIR__ . '/data/v2', self::ACDHI, self::$repo->getBaseUrl(),
+        $argv = ['', '--versioning', 'digest', __DIR__ . '/data/v2', self::ACDHI,
+            self::$repo->getBaseUrl(),
             'admin', 'admin'];
         require __DIR__ . '/../import_binary_sample.php';
 

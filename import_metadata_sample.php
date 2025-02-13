@@ -43,7 +43,7 @@ if (count($argv) > 1) {
     $parser->addArgument('repoUrl');
     $parser->addArgument('user');
     $parser->addArgument('password');
-    $args              = $parser->parseArgs($argv);
+    $args              = $parser->parseArgs(array_slice($argv, 1));
     $verbose           = !$args->silent;
     $autocommit        = $args->autocommit;
     $idNamespace       = $args->idNamespace;
