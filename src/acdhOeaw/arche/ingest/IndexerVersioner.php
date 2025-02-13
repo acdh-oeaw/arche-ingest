@@ -49,7 +49,7 @@ class IndexerVersioner {
 
     /**
      * 
-     * @return array{0: DatasetNodeInterface $oldVersionMeta, 1: DatasetNodeInterface $newVersionMeta}
+     * @return array{0: DatasetNodeInterface, 1: DatasetNodeInterface}
      */
     static public function versionMetadata(DatasetNodeInterface $oldMeta,
                                            Schema $schema): array {
@@ -71,15 +71,17 @@ class IndexerVersioner {
         // change class
         $oldMeta->forEach(fn(QuadInterface $q) => $q->withObject($schema->classes->oldResource), new PT(RDF::RDF_TYPE));
         // switch parent property to old parent property
+        /** @phpstan-ignore property.notFound */
         $oldMeta->forEach(fn(QuadInterface $q) => $q->withPredicate($schema->oldParent), new PT($schema->parent));
         // remove hasNextItem
         $oldMeta->delete(new PT($schema->nextItem));
         // remove old resource from all oai-pmh sets
+        /** @phpstan-ignore property.notFound */
         $oldMeta->delete(new PT($schema->oaipmhSet));
         // link to the previous version
         $newMeta->add(DF::quadNoSubject($schema->isNewVersionOf, $oldMeta->getNode()));
         // hadle version numbers
-        $version = $oldMeta->getObject(new PT($schema->version));
+        $version = $oldMeta->getObjectValue(new PT($schema->version));
         if (empty($version)) {
             $oldMeta->add(DF::quadNoSubject($schema->version, DF::literal('1')));
             $version = '2';
@@ -107,6 +109,7 @@ class IndexerVersioner {
         $query             = "SELECT id FROM relations WHERE target_id = ?";
         $refResources      = $repo->getResourcesBySqlQuery($query, [$oldId], $cfg);
         foreach ($refResources as $res) {
+            /** @var RepoResource $res */
             if ($res->getUri()->equals($newUri)) {
                 continue;
             }
