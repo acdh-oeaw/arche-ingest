@@ -43,7 +43,7 @@ if (count($argv) > 1) {
     $parser->addArgument('repoUrl');
     $parser->addArgument('user');
     $parser->addArgument('password');
-    $args              = $parser->parseArgs();
+    $args              = $parser->parseArgs($argv);
     $verbose           = !$args->silent;
     $autocommit        = $args->autocommit;
     $idNamespace       = $args->idNamespace;
@@ -76,10 +76,14 @@ try {
     foreach ($errors as $i) {
         echo ExceptionUtil::unwrap($i, $verbose) . "\n----------\n";
     }
-    exit(count($errors) === 0 ? 0 : 1);
+    $ret = count($errors) === 0 ? 0 : 1;
 } catch (Throwable $e) {
     echo "\n######################################################\nImport failed\n######################################################\n";
     echo ExceptionUtil::unwrap($e, $verbose) . "\n";
-    exit(1);
+    $ret = 1;
 }
-
+if (count(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)) > 0) {
+    return $ret;
+} else {
+    exit($ret);
+}

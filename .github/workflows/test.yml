@@ -13,7 +13,7 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: gd,json,mbstring,pcre,xmlreader,yaml
+        extensions: json,mbstring,pcre,yaml
         coverage: xdebug
       env:
         fail-fast: true
@@ -24,23 +24,17 @@ jobs:
         chmod +x config/run.d/*xdebug.sh config/run.d/*postgresql.sh config/run.d/*config-yaml.sh
         cp tests/config.yaml config/yaml/local.yaml
         cp .github/workflows/30-fixVocabularies.sh config/initScripts/
+        sed -i -e 's/acdh-oeaw\/arche-schema": ".*"/acdh-oeaw\/arche-schema": "dev-ontology_v-5.2.0"/' config/composer.json
     - name: run repo docker
       run: |
         mkdir log
-        docker run --name arche -p 80:80 -v `pwd`/log:/home/www-data/log -v `pwd`/config:/home/www-data/config -e USER_UID=`id -u` -e USER_GID=`id -g` -d acdhch/arche
+        docker run --name arche -p 80:80 -v `pwd`/log:/home/www-data/log -v `pwd`/config:/home/www-data/config -e ADMIN_PSWD=admin -e USER_UID=`id -u` -e USER_GID=`id -g` -d acdhch/arche
     - name: composer update
       run: |
         composer update
     - name: phpstan
       run: |
         vendor/bin/phpstan analyze -l 6 src
-    - name: fetch bigger data
-      run: |
-        curl https://zozlak.org/schnitzler-data.tgz > tests/data/schnitzler-data.tgz
-        cd tests/data
-        tar -xzf schnitzler-data.tgz
-        rm schnitzler-data.tgz
-        cd ../..
     - name: wait
       run: |
         while [ "`grep '# INIT SCRIPTS ENDED' log/initScripts.log | wc -l`" != "1" ]; do

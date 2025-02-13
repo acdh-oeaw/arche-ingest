@@ -11,12 +11,18 @@
             "email": "mzoltak@oeaw.ac.at"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "acdhOeaw\\": "src/acdhOeaw"
+        }
+    },
     "require": {
-        "acdh-oeaw/arche-lib-ingest": "^4",
+        "acdh-oeaw/arche-lib-ingest": "^5",
         "zozlak/argparse": "^1"
     },
     "require-dev": {
-        "phpstan/phpstan": "*"
+        "phpstan/phpstan": "*",
+        "phpunit/phpunit": "^12.0"
     },
     "bin": [
         "bin/arche-import-metadata",

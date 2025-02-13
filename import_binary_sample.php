@@ -3,15 +3,15 @@
 
 // This file imports binaries from a given directory
 // path to the data (e.g. '../data')
-$dataDir            = 'PATH_TO_THE_DATA_DIRECTORY';
+$dataDir        = 'PATH_TO_THE_DATA_DIRECTORY';
 // Prefix used to create ingested files IDs (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau')
 // The id is created by replacing $dataDir with $idPrefix in the ingested file's path
-$idPrefix           = 'ID_PREFIX';
+$idPrefix       = 'ID_PREFIX';
 // Filename filter - depending on the $filterType either only files with filenames matching or not matching the filter will be ingested
 // Filter value should be a valid first argument of the PHP's preg_match(), e.g. '/(Aachen_Prot_1.xml|Aachen_Dok_50.xml)$/'
-$filenameFilter     = '';
+$filenameFilter = '';
 // FILTER_MATCH or FILTER_SKIP - should the $filenamefilter match resources to be included or skipped during the ingestion
-$filterType         = 'FILTER_MATCH';
+$filterType     = 'FILTER_MATCH';
 
 // advanced config (generally shouldn't need adjustments)
 $sizeLimit          = -1;                 // Uploaded file size limit (in bytes, -1 means any size). Files bigger then this limit will be created with full metadata but their binary content won't be uploaded
@@ -46,6 +46,7 @@ if ($runComposerUpdate && count($argv) < 2) {
 use acdhOeaw\arche\lib\Repo;
 use acdhOeaw\arche\lib\ingest\Indexer;
 use acdhOeaw\arche\lib\exception\ExceptionUtil;
+use acdhOeaw\arche\ingest\IndexerVersioner;
 use zozlak\argparse\ArgumentParser;
 
 require_once "$composerLocation/vendor/autoload.php";
@@ -79,7 +80,7 @@ if (count($argv) > 1) {
     $parser->addArgument('repoUrl');
     $parser->addArgument('user');
     $parser->addArgument('password');
-    $args               = $parser->parseArgs();
+    $args               = $parser->parseArgs($argv);
     $parentResourceId   = $args->parentId;
     $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
     $versioning         = 'VERSIONING_' . mb_strtoupper($args->versioning);
@@ -111,7 +112,6 @@ $skip       = is_array($skip) ? $skip : [$skip];
 $skip       = array_map(fn($x) => $rc->getConstant($x), $skip);
 $skip       = array_sum($skip);
 $versioning = $rc->getConstant($versioning);
-$migratePid = $rc->getConstant($migratePid);
 $filterType = $rc->getConstant($filterType);
 
 if (in_array($skip, [Indexer::SKIP_EXIST, Indexer::SKIP_BINARY_EXIST]) && $versioning !== Indexer::VERSIONING_NONE) {
@@ -133,7 +133,7 @@ if ($assignDefaultClass) {
     $ind->setCollectionClass('');
 }
 $ind->setSkip($skip);
-$ind->setVersioning($versioning, $migratePid);
+$ind->setVersioning($versioning, fn($a, $b) => IndexerVersioner::versionMetadata($a, $b), fn($a, $b) => IndexerVersioner::updateReferences($a, $b));
 $ind->setUploadSizeLimit($sizeLimit);
 $ind->setAutoCommit($autocommit);
 $ind->setFlatStructure($flatStructure);
@@ -154,10 +154,14 @@ try {
     foreach ($errors as $i) {
         echo ExceptionUtil::unwrap($i, $verbose) . "\n----------\n";
     }
-    exit(count($errors) === 0 ? 0 : 1);
+    $ret = count($errors) === 0 ? 0 : 1;
 } catch (Throwable $e) {
     echo "\n######################################################\nImport failed\n######################################################\n";
     echo ExceptionUtil::unwrap($e, $verbose);
-    exit(1);
+    $ret = 1;
 }
-
+if (count(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 1)) > 0) {
+    return $ret;
+} else {
+    exit($ret);
+}

@@ -1,0 +1,9 @@
+rest:
+    urlBase: http://127.0.0.1
+    pathBase: /api/
+    verifyCert: false
+auth:
+    httpHeader:
+        Eppn: admin
+doorkeeper:
+    checkRanges: ~

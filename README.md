@@ -1,3 +1,8 @@
+[![Latest Stable Version](https://poser.pugx.org/acdh-oeaw/arche-ingest/v/stable)](https://packagist.org/packages/acdh-oeaw/arche-ingest)
+![Build status](https://github.com/acdh-oeaw/arche-ingest/workflows/phpunit/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/acdh-oeaw/arche-ingest/badge.svg?branch=master)](https://coveralls.io/github/acdh-oeaw/arche-ingest?branch=master)
+[![License](https://poser.pugx.org/acdh-oeaw/arche-ingest/license)](https://packagist.org/packages/acdh-oeaw/arche-ingest)
+
 # A collection of ARCHE ingestion script templates
 
 The REST API provided by the ARCHE is quite a low-level from the point of view of real-world data ingestions.
