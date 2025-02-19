@@ -79,14 +79,17 @@ class IndexerVersioner {
         /** @phpstan-ignore property.notFound */
         $oldMeta->delete(new PT($schema->oaipmhSet));
         // link to the previous version
+        $newMeta->delete(new PT($schema->isNewVersionOf));
         $newMeta->add(DF::quadNoSubject($schema->isNewVersionOf, $oldMeta->getNode()));
         // hadle version numbers
-        $version = $oldMeta->getObjectValue(new PT($schema->version));
+        $versionTmpl = new PT($schema->version);
+        $version     = $oldMeta->getObjectValue($versionTmpl);
         if (empty($version)) {
             $oldMeta->add(DF::quadNoSubject($schema->version, DF::literal('1')));
             $version = '2';
         } else {
-            $version = min(2, ((int) $version) + 1);
+            $newMeta->delete($versionTmpl);
+            $version = max(2, ((int) $version) + 1);
         }
         $newMeta->add(DF::quadNoSubject($schema->version, DF::literal((string) $version)));
         // trigger new PID generation if the old resource contains a PID
