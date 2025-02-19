@@ -23,7 +23,6 @@ $skip               = ['SKIP_NOT_EXIST', 'SKIP_BINARY_EXIST'];
 $assignDefaultClass = false;              // Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource). In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
 $parentResourceId   = '';                 // Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau'). ParentResourceId may be empty. In such a case files in the indexed directory root won't be attached to any parent by the Indexer (but they can still have parents defined e.g. trough a metadata import).
 $versioning         = 'VERSIONING_NONE';  // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
-$migratePid         = 'PID_KEEP';         // PID_KEEP, PID_PASS
 $errMode            = 'ERRMODE_CONTINUE'; // ERRMODE_FAIL (fail on first error), ERRMODE_PASS (continue on error and fail at the end) or ERRMODE_CONTINUE (continue no matter errors)
 $configLocation     = '/ARCHE/config.yaml';
 $composerLocation   = '/ARCHE';           // directory where you run "composer update"; if doesn't exist, the script's directory will be used instead
@@ -62,7 +61,6 @@ if (count($argv) > 1) {
     $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: [
         'none'], help: '(default %(default)s)');
     $parser->addArgument('--versioning', choices: $versioningModes, default: 'none', help: '(default %(default)s)');
-    $parser->addArgument('--migratePid', choices: ['keep', 'pass'], default: 'keep', help: 'In case of new version creation, should the pid be kept with an old resource or passed to the new one(default %(default)s)');
     $parser->addArgument('--sizeLimit', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum uploaded file size in bytes. -1 means no limit. (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--filenameFilter');
     $parser->addArgument('--filterType', choices: $filterTypes, default: 'match', help: 'Taken into account only when --filenameFilter is provided (default %(default)s)');
@@ -84,7 +82,6 @@ if (count($argv) > 1) {
     $parentResourceId   = $args->parentId;
     $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
     $versioning         = 'VERSIONING_' . mb_strtoupper($args->versioning);
-    $migratePid         = 'PID_' . mb_strtoupper($args->migratePid);
     $sizeLimit          = $args->sizeLimit;
     $filenameFilter     = '`' . $args->filenameFilter . '`';
     $filterType         = 'FILTER_' . mb_strtoupper($args->filterType);
