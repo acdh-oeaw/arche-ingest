@@ -31,6 +31,7 @@ use rdfInterface\QuadInterface;
 use rdfInterface\DatasetNodeInterface;
 use termTemplates\AnyOfTemplate;
 use termTemplates\PredicateTemplate as PT;
+use termTemplates\ValueTemplate as VT;
 use quickRdf\DataFactory as DF;
 use acdhOeaw\arche\lib\Schema;
 use acdhOeaw\arche\lib\RepoResource;
@@ -56,12 +57,14 @@ class IndexerVersioner {
         $repoIdNmsp = preg_replace('`/[0-9]+$`', '', (string) $oldMeta->getNode());
         $skipProp   = [$schema->id, $schema->pid, $schema->cmdiPid];
 
-        $newMeta = $oldMeta->copyExcept(new PT(new AnyOfTemplate($skipProp)));
+        $newMeta     = $oldMeta->copyExcept(new PT(new AnyOfTemplate($skipProp)));
         $newMeta->add(DF::quadNoSubject($schema->isNewVersionOf, $oldMeta->getNode()));
         // migrate all ids but the one in the repo namespace and pids
+        $pidTmpl     = new PT($schema->pid);
+        $cmdiPidTmpl = new PT($schema->cmdiPid);
         foreach (iterator_to_array($oldMeta->getIterator(new PT($schema->id))) as $quad) {
             $id = (string) $quad->getObject();
-            if (!str_starts_with($id, $repoIdNmsp) && $oldMeta->none($quad->withPredicate($schema->pid)) && $oldMeta->none($quad->withPredicate($schema->cmdiPid))) {
+            if (!str_starts_with($id, $repoIdNmsp) && $oldMeta->none($pidTmpl->withObject($id)) && $oldMeta->none($cmdiPidTmpl->withObject($id))) {
                 $newMeta->add($quad);
                 $oldMeta->delete($quad);
             }
