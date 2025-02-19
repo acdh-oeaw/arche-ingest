@@ -15,7 +15,7 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANhttp://pidTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -74,13 +74,13 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
      */
     public function testVersioning(): void {
         $toDel = [self::ACDHI . 'res3', self::ACDHI . 'res2', self::ACDHI . 'res1',
-            self::ACDHI . 'vid/%', self::ACDHI . 'topcol'];
+            self::ACDHI . 'vid/%', self::ACDHI . 'file.txt', self::ACDHI . 'topcol',];
         $this->removeResources($toDel);
         //TODO: setup
         //- turn of named entity checks
 
-        $argv = ['', __DIR__ . '/data/meta.ttl', 'http://127.0.0.1/api/', 'admin',
-            'admin'];
+        $argv = ['', '--concurrency', '1', __DIR__ . '/data/meta.ttl', 'http://127.0.0.1/api/',
+            'admin', 'admin'];
         require __DIR__ . '/../import_metadata_sample.php';
 
         $argv = ['', '--versioning', 'digest', __DIR__ . '/data/v1', self::ACDHI,
@@ -92,72 +92,95 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
             'admin', 'admin'];
         require __DIR__ . '/../import_binary_sample.php';
 
-        $newRes  = self::$repo->getResourceById(self::ACDHI . 'file.txt');
-        $newMeta = $newRes->getGraph();
-        $oldUrl  = $newMeta->getObjectValue(new PT(self::$schema->isNewVersionOf));
-        $this->assertNotEmpty($oldUrl);
-        $oldMeta = (new RepoResource($oldUrl, self::$repo))->getGraph();
+        $argv = ['', '--versioning', 'digest', __DIR__ . '/data/v3', self::ACDHI,
+            self::$repo->getBaseUrl(),
+            'admin', 'admin'];
+        require __DIR__ . '/../import_binary_sample.php';
+
+        $v3Res  = self::$repo->getResourceById(self::ACDHI . 'file.txt');
+        $v3Meta = $v3Res->getGraph();
+        $v2Url  = $v3Meta->getObjectValue(new PT(self::$schema->isNewVersionOf));
+        $this->assertNotEmpty($v2Url);
+        $v2Meta = (new RepoResource($v2Url, self::$repo))->getGraph();
+        $v1Url  = $v2Meta->getObjectValue(new PT(self::$schema->isNewVersionOf));
+        $this->assertNotEmpty($v1Url);
+        $v1Meta = (new RepoResource($v1Url, self::$repo))->getGraph();
 
         // classes
         $classTmpl = new PT(DF::namedNode(RDF::RDF_TYPE));
-        $this->assertTrue(self::$schema->classes->resource->equals($newMeta->getObject($classTmpl)));
-        $this->assertTrue(self::$schema->classes->oldResource->equals($oldMeta->getObject($classTmpl)));
+        $this->assertTrue(self::$schema->classes->resource->equals($v3Meta->getObject($classTmpl)));
+        $this->assertTrue(self::$schema->classes->oldResource->equals($v2Meta->getObject($classTmpl)));
+        $this->assertTrue(self::$schema->classes->oldResource->equals($v1Meta->getObject($classTmpl)));
 
         // ids in the ACDHI namespaces
         $id1Tmpl = new PT(self::$schema->id, DF::namedNode(self::ACDHI . 'file.txt'));
         $id2Tmpl = new PT(self::$schema->id, DF::namedNode(self::ACDHI . 'res2'));
-        $this->assertTrue($oldMeta->none($id1Tmpl));
-        $this->assertTrue($oldMeta->none($id2Tmpl));
-        $this->assertTrue($newMeta->any($id1Tmpl));
-        $this->assertTrue($newMeta->any($id2Tmpl));
+        $this->assertTrue($v1Meta->none($id1Tmpl));
+        $this->assertTrue($v1Meta->none($id2Tmpl));
+        $this->assertTrue($v2Meta->none($id1Tmpl));
+        $this->assertTrue($v2Meta->none($id2Tmpl));
+        $this->assertTrue($v3Meta->any($id1Tmpl));
+        $this->assertTrue($v3Meta->any($id2Tmpl));
 
         // VID id for the old version
         $vidTmpl = new PT(self::$schema->id, new VT('`^' . self::ACDHI . 'vid/`', VT::REGEX));
-        $this->assertEquals(1, count($oldMeta->copy($vidTmpl)));
-        $this->assertTrue($newMeta->none($vidTmpl));
+        $this->assertEquals(1, count($v1Meta->copy($vidTmpl)));
+        $this->assertEquals(1, count($v2Meta->copy($vidTmpl)));
+        $this->assertNotEquals($v1Meta->getObjectValue($vidTmpl), $v2Meta->getObjectValue($vidTmpl));
+        $this->assertTrue($v3Meta->none($vidTmpl));
 
         // PID
+        $pid       = 'https://hdl.handle.net/00.00000/0000-0000-0000-0';
         $pidTmpl   = new PT(self::$schema->pid);
-        $pidIdTmpl = new PT(self::$schema->id, DF::namedNode('http://pid'));
-        $this->assertTrue(DF::literal('http://pid', datatype: RDF::XSD_ANY_URI)->equals($oldMeta->getObject($pidTmpl)));
-        $this->assertTrue($oldMeta->any($pidIdTmpl));
+        $pidIdTmpl = new PT(self::$schema->id, DF::namedNode($pid));
+        $this->assertTrue(DF::literal($pid, datatype: RDF::XSD_ANY_URI)->equals($v1Meta->getObject($pidTmpl)));
+        $this->assertTrue($v1Meta->any($pidIdTmpl));
         // TODO - find a way to test creation of the PID for the new resource
-        $this->assertTrue(DF::literal('create', datatype: RDF::XSD_ANY_URI)->equals($newMeta->getObject($pidTmpl)));
-        $this->assertTrue($newMeta->none($pidIdTmpl));
+        $this->assertTrue(DF::literal('create', datatype: RDF::XSD_ANY_URI)->equals($v2Meta->getObject($pidTmpl)));
+        $this->assertTrue($v2Meta->none($pidIdTmpl));
+        $this->assertTrue(DF::literal('create', datatype: RDF::XSD_ANY_URI)->equals($v3Meta->getObject($pidTmpl)));
+        $this->assertTrue($v3Meta->none($pidIdTmpl));
 
         // CMDI PID
+        $cmdipid   = 'https://hdl.handle.net/00.00000/0000-0000-0000-1';
         $pidTmpl   = new PT(self::$schema->cmdiPid);
-        $pidIdTmpl = new PT(self::$schema->id, DF::namedNode('http://cmdi.pid'));
-        $this->assertEquals('http://cmdi.pid', $oldMeta->getObjectValue($pidTmpl));
+        $pidIdTmpl = new PT(self::$schema->id, DF::namedNode($cmdipid));
+        $this->assertEquals($cmdipid, $v1Meta->getObjectValue($pidTmpl));
         // TODO - find a way to test creation of the PID for the new resource
-        $this->assertTrue($newMeta->none($pidTmpl));
-        $this->assertTrue($newMeta->none($pidIdTmpl));
+        $this->assertTrue($v2Meta->none($pidTmpl));
+        $this->assertTrue($v2Meta->none($pidIdTmpl));
+        $this->assertTrue($v3Meta->none($pidTmpl));
+        $this->assertTrue($v3Meta->none($pidIdTmpl));
 
         // parent and oldParent
         $parentTmpl    = new PT(self::$schema->parent);
         $oldParentTmpl = new PT(self::$schema->oldParent);
-        $this->assertTrue($oldMeta->none($parentTmpl));
-        $this->assertTrue($oldMeta->getObject($oldParentTmpl)->equals($newMeta->getObject($parentTmpl)));
-        $this->assertTrue($newMeta->none($oldParentTmpl));
+        $this->assertTrue($v1Meta->none($parentTmpl));
+        $this->assertTrue($v1Meta->getObject($oldParentTmpl)->equals($v3Meta->getObject($parentTmpl)));
+        $this->assertTrue($v2Meta->none($parentTmpl));
+        $this->assertTrue($v2Meta->getObject($oldParentTmpl)->equals($v3Meta->getObject($parentTmpl)));
+        $this->assertTrue($v3Meta->none($oldParentTmpl));
 
         // version
         $versionTmpl = new PT(self::$schema->version);
-        $this->assertTrue(DF::literal('1')->equals($oldMeta->getObject($versionTmpl)));
-        $this->assertTrue(DF::literal('2')->equals($newMeta->getObject($versionTmpl)));
+        $this->assertTrue(DF::literal('1')->equals($v1Meta->getObject($versionTmpl)));
+        $this->assertTrue(DF::literal('2')->equals($v2Meta->getObject($versionTmpl)));
+        $this->assertTrue(DF::literal('3')->equals($v3Meta->getObject($versionTmpl)));
 
         // oai-pmh set
         $oaiTmpl = new PT(self::$schema->oaipmhSet);
-        $this->assertTrue($oldMeta->none($oaiTmpl));
+        $this->assertTrue($v1Meta->none($oaiTmpl));
+        $this->assertTrue($v2Meta->none($oaiTmpl));
         $oaiRes  = self::$repo->getResourceById('https://vocabs.acdh.oeaw.ac.at/archeoaisets/ariadne');
-        $this->assertTrue($oaiRes->getUri()->equals($newMeta->getObject($oaiTmpl)));
+        $this->assertTrue($oaiRes->getUri()->equals($v3Meta->getObject($oaiTmpl)));
 
         // nextItem
         $nextTmpl = new PT(self::$schema->nextItem);
         $prevMeta = self::$repo->getResourceById(self::ACDHI . 'res1')->getGraph();
         $nextRes  = self::$repo->getResourceById(self::ACDHI . 'res3')->getUri();
-        $this->assertTrue($oldMeta->none($nextTmpl));
-        $this->assertTrue($nextRes->equals($newMeta->getObject($nextTmpl)));
-        $this->assertTrue($newRes->getUri()->equals($prevMeta->getObject($nextTmpl)));
+        $this->assertTrue($v1Meta->none($nextTmpl));
+        $this->assertTrue($nextRes->equals($v3Meta->getObject($nextTmpl)));
+        $this->assertTrue($v3Res->getUri()->equals($prevMeta->getObject($nextTmpl)));
     }
 
     /**
@@ -168,12 +191,9 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
         $query  = "SELECT id FROM identifiers WHERE ids LIKE ?";
         self::$repo->begin();
         foreach ($ids as $id) {
-            try {
-                foreach (self::$repo->getResourcesBySqlQuery($query, [$id], $config) as $res) {
-                    $res->delete(true, true);
-                }
-            } catch (NotFound $ex) {
-                
+            foreach (self::$repo->getResourcesBySqlQuery($query, [$id], $config) as $res) {
+                echo "removing " . $res->getUri() . "\n";
+                $res->delete(true, true);
             }
         }
         self::$repo->commit();
