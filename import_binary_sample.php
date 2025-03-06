@@ -19,7 +19,8 @@ $sizeLimit          = -1;                 // Uploaded file size limit (in bytes,
 // SKIP_NONE import all files
 // SKIP_BINARY_EXIST skip files which have corresponding repository resource with not empty binary payload. Use it if your upload failed in the middle but you used autocommit and some resources were ingested. In such a case the ingestion will skip resources which were already ingested and ingest only the ones which are still missing (saving your time and increases chances additional resources will be ingested).
 // SKIP_EXIST skip files which have corresponding repository resource. Like SKIP_BINARY_EXIST but it's enough if a resource exists (it doesn't have to have a binary payload).
-$skip               = ['SKIP_NOT_EXIST', 'SKIP_BINARY_EXIST'];
+// SKIP_SPECIAL skip files with a name starting with a dot and Thumbs.db
+$skip               = ['SKIP_NOT_EXIST', 'SKIP_BINARY_EXIST', 'SKIP_SPECIAL'];
 $assignDefaultClass = false;              // Should collections/binary resources be assigned a default class (e.g. acdh:Collection and acdh:Resource). In case of ingesting binary data for already existing repository resources it might be safer to choose "false" (preserve their existing classes)
 $parentResourceId   = '';                 // Parent resource ID - typically the top-level collection ID (e.g. 'https://id.acdh.oeaw.ac.at/wollmilchsau'). ParentResourceId may be empty. In such a case files in the indexed directory root won't be attached to any parent by the Indexer (but they can still have parents defined e.g. trough a metadata import).
 $versioning         = 'VERSIONING_NONE';  // VERSIONING_NONE, VERSIONING_ALWAYS, VERSIONING_DIGEST, VERSIONING_DATE
@@ -52,14 +53,15 @@ require_once "$composerLocation/vendor/autoload.php";
 $rc = new ReflectionClass(Indexer::class);
 
 if (count($argv) > 1) {
-    $errModes           = ['fail', 'pass', 'continue'];
-    $skipModes          = ['none', 'not_exist', 'exist', 'binary_exist'];
-    $versioningModes    = ['none', 'always', 'digest', 'date'];
-    $filterTypes        = ['match', 'skip'];
-    $parser             = new ArgumentParser();
+    $errModes         = ['fail', 'pass', 'continue'];
+    $skipModes        = ['none', 'not_exist', 'exist', 'binary_exist'];
+    $versioningModes  = ['none', 'always', 'digest', 'date'];
+    $filterTypes      = ['match', 'skip'];
+    $skipDefault      = ['none'];
+    $parser           = new ArgumentParser();
     $parser->addArgument('--parentId');
-    $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: [
-        'none'], help: '(default %(default)s)');
+    $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: $skipDefault, help: '(default %(default)s)');
+    $parser->addArgument('--includeSpecial', action: ArgumentParser::ACTION_STORE_TRUE, default: false, help: 'if not set, the skip mode "special" is always enabled');
     $parser->addArgument('--versioning', choices: $versioningModes, default: 'none', help: '(default %(default)s)');
     $parser->addArgument('--sizeLimit', type: ArgumentParser::TYPE_INT, default: -1, help: 'Maximum uploaded file size in bytes. -1 means no limit. (default %(default)s)', metavar: 'BYTES');
     $parser->addArgument('--filenameFilter');
@@ -78,9 +80,12 @@ if (count($argv) > 1) {
     $parser->addArgument('repoUrl');
     $parser->addArgument('user');
     $parser->addArgument('password');
-    $args               = $parser->parseArgs(array_slice($argv, 1));
-    $parentResourceId   = $args->parentId;
-    $skip               = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
+    $args             = $parser->parseArgs(array_slice($argv, 1));
+    $parentResourceId = $args->parentId;
+    $skip             = array_map(fn($x) => 'SKIP_' . mb_strtoupper($x), $args->skip);
+    if (!$args->includeSpecial) {
+        $skip[] = 'SKIP_SPECIAL';
+    }
     $versioning         = 'VERSIONING_' . mb_strtoupper($args->versioning);
     $sizeLimit          = $args->sizeLimit;
     $filenameFilter     = '`' . $args->filenameFilter . '`';
@@ -107,7 +112,7 @@ if (count($argv) > 1) {
 $errMode    = $rc->getConstant($errMode);
 $skip       = is_array($skip) ? $skip : [$skip];
 $skip       = array_map(fn($x) => $rc->getConstant($x), $skip);
-$skip       = array_sum($skip);
+$skip       = array_sum(array_unique($skip));
 $versioning = $rc->getConstant($versioning);
 $filterType = $rc->getConstant($filterType);
 
