@@ -1,7 +1,7 @@
 @prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.
 @prefix acdhi: <https://id.acdh.oeaw.ac.at/>.
 
-acdhi:joe
+acdhi:mzoltak
     a               acdh:Person;
     acdh:hasTitle   "Joe"@und.
 
@@ -10,26 +10,26 @@ acdhi:topcol
     acdh:hasTitle           "top collection"@en;
     acdh:hasNextItem        acdhi:res1;
     acdh:hasDescription     "description"@en;
-    acdh:hasContact         acdhi:joe;
+    acdh:hasContact         acdhi:mzoltak;
     acdh:hasSubject         "subject"@en;
-    acdh:hasMetadataCreator acdhi:joe;
-    acdh:hasOwner           acdhi:joe;
-    acdh:hasRightsHolder    acdhi:joe;
-    acdh:hasLicensor        acdhi:joe;
-    acdh:hasDepositor       acdhi:joe;
-    acdh:hasCurator         acdhi:joe;
-    acdh:hasHosting         acdhi:joe.
+    acdh:hasMetadataCreator acdhi:mzoltak;
+    acdh:hasOwner           acdhi:mzoltak;
+    acdh:hasRightsHolder    acdhi:mzoltak;
+    acdh:hasLicensor        acdhi:mzoltak;
+    acdh:hasDepositor       acdhi:mzoltak;
+    acdh:hasCurator         acdhi:mzoltak;
+    acdh:hasHosting         acdhi:mzoltak.
 
 acdhi:res1
     a                       acdh:Resource;
     acdh:hasTitle           "resource 1"@en;
     acdh:hasCategory        <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
-    acdh:hasMetadataCreator acdhi:joe;
-    acdh:hasOwner           acdhi:joe;
-    acdh:hasRightsHolder    acdhi:joe;
-    acdh:hasLicensor        acdhi:joe;
-    acdh:hasDepositor       acdhi:joe;
-    acdh:hasHosting         acdhi:joe;
+    acdh:hasMetadataCreator acdhi:mzoltak;
+    acdh:hasOwner           acdhi:mzoltak;
+    acdh:hasRightsHolder    acdhi:mzoltak;
+    acdh:hasLicensor        acdhi:mzoltak;
+    acdh:hasDepositor       acdhi:mzoltak;
+    acdh:hasHosting         acdhi:mzoltak;
     acdh:hasLicense         <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc0-1-0>;
     acdh:isPartOf           acdhi:topcol;
     acdh:hasNextItem        acdhi:file.txt.
@@ -41,12 +41,12 @@ acdhi:res2
     acdh:hasPid             "https://hdl.handle.net/21.11115/0000-000D-9C36-7";
     acdh:hasMetadataPid     "https://hdl.handle.net/21.11115/0000-000B-F87F-0";
     acdh:hasCategory        <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
-    acdh:hasMetadataCreator acdhi:joe;
-    acdh:hasOwner           acdhi:joe;
-    acdh:hasRightsHolder    acdhi:joe;
-    acdh:hasLicensor        acdhi:joe;
-    acdh:hasDepositor       acdhi:joe;
-    acdh:hasHosting         acdhi:joe;
+    acdh:hasMetadataCreator acdhi:mzoltak;
+    acdh:hasOwner           acdhi:mzoltak;
+    acdh:hasRightsHolder    acdhi:mzoltak;
+    acdh:hasLicensor        acdhi:mzoltak;
+    acdh:hasDepositor       acdhi:mzoltak;
+    acdh:hasHosting         acdhi:mzoltak;
     acdh:hasLicense         <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc0-1-0>;
     acdh:hasOaiSet          <https://vocabs.acdh.oeaw.ac.at/archeoaisets/ariadne>;
     acdh:isPartOf           acdhi:topcol;
@@ -56,12 +56,12 @@ acdhi:res3
     a                       acdh:Resource;
     acdh:hasTitle           "resource 1"@en;
     acdh:hasCategory        <https://vocabs.acdh.oeaw.ac.at/archecategory/text>;
-    acdh:hasMetadataCreator acdhi:joe;
-    acdh:hasOwner           acdhi:joe;
-    acdh:hasRightsHolder    acdhi:joe;
-    acdh:hasLicensor        acdhi:joe;
-    acdh:hasDepositor       acdhi:joe;
-    acdh:hasHosting         acdhi:joe;
+    acdh:hasMetadataCreator acdhi:mzoltak;
+    acdh:hasOwner           acdhi:mzoltak;
+    acdh:hasRightsHolder    acdhi:mzoltak;
+    acdh:hasLicensor        acdhi:mzoltak;
+    acdh:hasDepositor       acdhi:mzoltak;
+    acdh:hasHosting         acdhi:mzoltak;
     acdh:hasLicense         <https://vocabs.acdh.oeaw.ac.at/archelicenses/cc0-1-0>;
     acdh:isPartOf           acdhi:topcol.
     
