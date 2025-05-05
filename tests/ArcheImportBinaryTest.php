@@ -130,7 +130,7 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($v3Meta->none($vidTmpl));
 
         // PID
-        $pid       = 'https://hdl.handle.net/00.00000/0000-0000-0000-0';
+        $pid       = 'https://hdl.handle.net/21.11115/0000-000D-9C36-7';
         $pidTmpl   = new PT(self::$schema->pid);
         $pidIdTmpl = new PT(self::$schema->id, DF::namedNode($pid));
         $this->assertTrue(DF::literal($pid, datatype: RDF::XSD_ANY_URI)->equals($v1Meta->getObject($pidTmpl)));
@@ -142,7 +142,7 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($v3Meta->none($pidIdTmpl));
 
         // CMDI PID
-        $cmdipid   = 'https://hdl.handle.net/00.00000/0000-0000-0000-1';
+        $cmdipid   = 'https://hdl.handle.net/21.11115/0000-000B-F87F-0';
         $pidTmpl   = new PT(self::$schema->cmdiPid);
         $pidIdTmpl = new PT(self::$schema->id, DF::namedNode($cmdipid));
         $this->assertEquals($cmdipid, $v1Meta->getObjectValue($pidTmpl));
