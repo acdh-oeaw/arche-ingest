@@ -1,5 +1,5 @@
 [![Latest Stable Version](https://poser.pugx.org/acdh-oeaw/arche-ingest/v/stable)](https://packagist.org/packages/acdh-oeaw/arche-ingest)
-![Build status](https://github.com/acdh-oeaw/arche-ingest/workflows/phpunit/badge.svg?branch=master)
+[![Build Status](https://github.com/acdh-oeaw/arche-ingest/actions/workflows/test.yml/badge.svg)](https://github.com/acdh-oeaw/arche-ingest/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/acdh-oeaw/arche-ingest/badge.svg?branch=master)](https://coveralls.io/github/acdh-oeaw/arche-ingest?branch=master)
 [![License](https://poser.pugx.org/acdh-oeaw/arche-ingest/license)](https://packagist.org/packages/acdh-oeaw/arche-ingest)
 

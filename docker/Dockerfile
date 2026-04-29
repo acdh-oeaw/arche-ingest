@@ -7,7 +7,7 @@
 #    apt install -y clamav clamdscan clamav-daemon gdal-bin screen default-jre-headless git vim exiftool &&\
 #    install-php-extensions @composer ctype dom exif fileinfo gd iconv intl libxml mbstring simplexml xml xmlwriter zip zlib bz2 phar yaml xdebug &&\
 #    ln -s /usr/local/bin/php /usr/bin/php &&\
-FROM ubuntu:24.04
+FROM ubuntu:resolute
 RUN apt update &&\
     apt install -y clamav clamdscan clamav-daemon gdal-bin screen default-jre-headless curl git vim exiftool php-cli php-ctype php-dom php-exif php-fileinfo php-gd php-iconv php-intl php-mbstring php-pdo-sqlite php-simplexml php-xml php-xmlwriter php-zip php-bz2 php-phar php-yaml php-xdebug composer
 RUN sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
