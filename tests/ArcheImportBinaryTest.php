@@ -154,6 +154,7 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
 
         // parent and oldParent
         $parentTmpl    = new PT(self::$schema->parent);
+        /** @phpstan-ignore property.notFound */
         $oldParentTmpl = new PT(self::$schema->oldParent);
         $this->assertTrue($v1Meta->none($parentTmpl));
         $this->assertTrue($v1Meta->getObject($oldParentTmpl)->equals($v3Meta->getObject($parentTmpl)));
@@ -168,6 +169,7 @@ class ArcheImportBinaryTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(DF::literal('3')->equals($v3Meta->getObject($versionTmpl)));
 
         // oai-pmh set
+        /** @phpstan-ignore property.notFound */
         $oaiTmpl = new PT(self::$schema->oaipmhSet);
         $this->assertTrue($v1Meta->none($oaiTmpl));
         $this->assertTrue($v2Meta->none($oaiTmpl));

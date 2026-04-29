@@ -17,6 +17,10 @@ jobs:
         coverage: xdebug
       env:
         fail-fast: true
+    - name: composer
+      run: composer update
+    - name: phpstan
+      run: vendor/bin/phpstan analyze -l 6 src tests bin/*
     - name: clone repo config
       run: |
         git clone --depth 1 --branch arche https://github.com/acdh-oeaw/arche-docker-config.git config
@@ -29,12 +33,6 @@ jobs:
       run: |
         mkdir log
         docker run --name arche -p 80:80 -v `pwd`/log:/home/www-data/log -v `pwd`/config:/home/www-data/config -e ADMIN_PSWD=admin -e USER_UID=`id -u` -e USER_GID=`id -g` -d acdhch/arche
-    - name: composer update
-      run: |
-        composer update
-    - name: phpstan
-      run: |
-        vendor/bin/phpstan analyze -l 6 src
     - name: wait
       run: |
         while [ "`grep '# INIT SCRIPTS ENDED' log/initScripts.log | wc -l`" != "1" ]; do
@@ -57,20 +55,3 @@ jobs:
         rm -fR composer.json composer.lock vendor
         composer require php-coveralls/php-coveralls
         php vendor/bin/php-coveralls -v
-  phpstan:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v6
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.5
-    - uses: actions/cache@v5
-      with:
-        path: vendor
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
-    - name: composer
-      run: composer update
-    - name: phpstan
-      run: vendor/bin/phpstan analyse -l 8 src tests || true
-
