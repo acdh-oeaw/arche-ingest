@@ -18,6 +18,7 @@ acdhi:topcol
     acdh:hasLicensor        acdhi:mzoltak;
     acdh:hasDepositor       acdhi:mzoltak;
     acdh:hasCurator         acdhi:mzoltak;
+    acdh:hasEditor          acdhi:mzoltak;
     acdh:hasHosting         acdhi:mzoltak.
 
 acdhi:res1
