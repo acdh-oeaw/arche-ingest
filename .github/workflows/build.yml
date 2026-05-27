@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v6
     - name: docker build
       run: docker build -t acdhch/arche-ingest --label "buildUrl=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" docker
-    - uses: docker/login-action@v2
+    - uses: docker/login-action@v4
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
