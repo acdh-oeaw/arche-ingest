@@ -8,10 +8,12 @@ RUN sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
     echo "syntax on\nfiletype plugin indent on\nset tabstop=4\nset shiftwidth=4\nset expandtab" > /root/.vimrc
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin LC_ALL=C.utf8 LANG=C.utf8
-RUN composer require --no-update acdh-oeaw/arche-ingest &&\
+RUN cd / &&\
+    composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
     composer require --no-update "acdh-oeaw/arche-metadata-crawler <1" &&\
     composer update -o --no-dev &&\
     chmod 777 vendor/acdh-oeaw/repo-file-checker/aux &&\
     /vendor/acdh-oeaw/repo-file-checker/aux/install_deps.sh
-ENTRYPOINT /bin/bash
+COPY start.sh /start.sh
+ENTRYPOINT /start.sh
