@@ -11,7 +11,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/us
 RUN cd / &&\
     composer require --no-update acdh-oeaw/arche-ingest &&\
     composer require --no-update acdh-oeaw/repo-file-checker &&\
-    composer require --no-update "acdh-oeaw/arche-metadata-crawler <1" &&\
+    composer require --no-update acdh-oeaw/arche-metadata-crawler &&\
     composer update -o --no-dev &&\
     chmod 777 vendor/acdh-oeaw/repo-file-checker/aux &&\
     /vendor/acdh-oeaw/repo-file-checker/aux/install_deps.sh
