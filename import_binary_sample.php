@@ -54,10 +54,10 @@ $rc = new ReflectionClass(Indexer::class);
 
 if (count($argv) > 1) {
     $errModes         = ['fail', 'pass', 'continue'];
-    $skipModes        = ['none', 'not_exist', 'exist', 'binary_exist'];
+    $skipModes        = ['none', 'not_exist', 'exist', 'binary_exist', 'directory', 'special'];
     $versioningModes  = ['none', 'always', 'digest', 'date'];
     $filterTypes      = ['match', 'skip'];
-    $skipDefault      = ['none'];
+    $skipDefault      = ['directory', 'special'];
     $parser           = new ArgumentParser();
     $parser->addArgument('--parentId');
     $parser->addArgument('--skip', choices: $skipModes, nargs: ArgumentParser::NARGS_STAR, default: $skipDefault, help: '(default %(default)s)');
