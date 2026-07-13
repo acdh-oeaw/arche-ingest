@@ -6,7 +6,8 @@ RUN sed -i -e 's/^User .*/User root/g' /etc/clamav/clamd.conf &&\
     usermod -s /bin/bash root &&\
     echo 'shell "/bin/bash"' >> /root/.screenrc &&\
     echo "syntax on\nfiletype plugin indent on\nset tabstop=4\nset shiftwidth=4\nset expandtab" > /root/.vimrc &&\
-    ln -s libextern_draco.cpython-314-x86_64-linux-gnu.so /usr/lib/blender/scripts/addons_core/io_scene_gltf2/libextern_draco.so
+    ln -s libextern_draco.cpython-314-x86_64-linux-gnu.so /usr/lib/blender/scripts/addons_core/io_scene_gltf2/libextern_draco.so &&\
+    curl -L https://github.com/dnglab/dnglab/releases/download/v0.7.2/dnglab_0.7.2-1_amd64.deb > tmp.dpkg && dpkg -i tmp.dpkg && rm -fR tmp.dpkg
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/vendor/bin LC_ALL=C.utf8 LANG=C.utf8
 RUN cd / &&\
