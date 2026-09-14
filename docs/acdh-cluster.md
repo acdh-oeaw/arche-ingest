@@ -29,9 +29,9 @@ Remarks:
 
 * Install the `kubectl`: https://kubernetes.io/docs/tasks/tools/
 * Open https://rancher.acdh-dev.oeaw.ac.at/ and if needed log in using your OEAW credentials.
-* Open https://rancher.acdh-dev.oeaw.ac.at/dashboard/c/_/manager/provisioning.cattle.io.cluster.
-* In the table listing clusters click on the vertical three dots button at the right end of the table row
-  and choose the `Download KubeConfig`.
+* Open https://rancher.acdh-dev.oeaw.ac.at/dashboard/c/c-m-6hwgqq2g/explorer
+* Inspect buttons in the top-right corner of the screen and click onthe`Download KubeConfig` one
+  (6th from the right at the moment of writing this document).
   Remember the location where you have stored the file.
   This location will be referred to as `kubeConfigFilePath` in commands below.
 
